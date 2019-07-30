@@ -69,8 +69,8 @@
     vars:
       workshopper_name: guides
       project_name: "{{ namespace }}"
-      workshopper_content_url_prefix: "https://raw.githubusercontent.com/{{ github_account }}/vertx-kubernetes-workshop/{{ github_ref }}/docs/workshopper-guides"
-      workshopper_workshop_urls: "https://raw.githubusercontent.com/{{ github_account }}/vertx-kubernetes-workshop/{{ github_ref }}/docs/workshopper-guides/_workshop-guides-che.yml"
+      workshopper_content_url_prefix: "https://raw.githubusercontent.com/{{ github_account }}/vertx-kubernetes-workshop-infra/{{ github_ref }}/docs/workshopper-guides"
+      workshopper_workshop_urls: "https://raw.githubusercontent.com/{{ github_account }}/vertx-kubernetes-workshop-infra/{{ github_ref }}/docs/workshopper-guides/_workshop-guides-che.yml"
       workshopper_env_vars:
         PROJECT_SUFFIX: "{{ project_suffix }}"
         COOLSTORE_PROJECT: micro-trader-{{ project_suffix }}
