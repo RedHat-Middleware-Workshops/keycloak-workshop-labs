@@ -1,10 +1,11 @@
 == Setting up
 Before we start the lab, its important that you read the following instructions carefully. These instructions will be refered from the rest of the content if you need to come back to them.
 
-The lab environment is setup with a customized vert.x stack created for Eclipse Che or CodeReady
+The lab environment is setup with out of the box components from RHMI(Red Hat Managed Integration) also know as Integreatly. Incase you would like to create this workshop your self you would need to get the "Integreatly workshop cluster" from RHPDS. Details on that later in the Appendix.
+
 
 == Creating your workspace
-Ensure you are logged into to Che/CodeReady with your userXX.
+Ensure you are logged into to Che/CodeReady with your evalsXX. (here XX should be replaced with your user number e.g. 01,02.. etc.)
 Once logged in, you should see your own dashboard.  
 Following instructions will guide you in creating a workspace for this lab. 
 
@@ -22,10 +23,10 @@ image::workshop-che-screenshot4.png[Creating workspace,600]
 
 
 === Step 2: Choose your Stack
-Whats a Stack you ask?
+Whats a Stack?
 A stack is a runtime configuration for a workspace. It contains a runtime recipe, meta information like tags, description, environment name, and security policies. Stacks are displayed within the user dashboard and stack tags are used to filter the project code samples that are available. A stack's recipe can be Kubernetes YAML, a Dockerfile or a Docker Compose file that will create a runtime to be embedded into the workspace. You can use any of Che's 30+ built-in stacks or author your own unique stack for your work.
 
-Choosing our stack for the lab; select the Vert.x Stack as shown in the image below.
+Choosing our stack for the lab; select the Spring boot Stack as shown in the image below. * You do not need to press the "Add Stack" button; rather just select the stack by clicking on its name
 
 image::workshop-che-screenshot5.png[Creating workspace,600]
 
@@ -37,7 +38,7 @@ image::workshop-che-screenshot6.png[Creating workspace,600]
 
 [source]
 ----
-git clone https://github.com/jbossdemocentral/vertx-kubernetes-workshop.git
+https://github.com/jbossdemocentral/sso-kubernetes-workshop.git
 ----
 
 Press the Create Workspace button, and wait for the following dialog to appear. 
@@ -47,15 +48,8 @@ image::workshop-che-screenshot7.png[Creating workspace,600]
 
 
 == Working with Che/CodeReady
-The following are a few steps that will help you setup your environment.
+The following are a few steps that will help you compelete the setup for your environment.
 If you are familiar with IDE (Integrated Development Environments), Che/CodeReady is no exception. It runs in your browser and has similar experince to running any IDE. 
-
-A few things that are specific to this lab. 
-
-Once the workspace is loaded, click on the "Project" >> "Project Update Configurations" and select project type as Maven. Press next and use the default options to finally save the project setttings. Following image shows an example.
-
-image::project-config.png[Configure project maven settings,800]
-
 
 Run the following commands in the terminal to ensure that your environment is up and running, replace userXX with your username
 
@@ -63,7 +57,7 @@ Run the following commands in the terminal to ensure that your environment is up
 [source, bash]
 ----
 
-oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true -u <userXX> -p openshift
+oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true -u <evalsXX> -p openshift
 
 ----
 
@@ -72,25 +66,18 @@ namespace making easy to organize your different applications in OpenShift. In a
 
 [source, bash]
 ----
-oc new-project <USERXX>-vertx-kubernetes-workshop
-oc policy add-role-to-user view admin -n <USERXX>-vertx-kubernetes-workshop
-oc policy add-role-to-user view -n <USERXX>-vertx-kubernetes-workshop -z default
-oc policy add-role-to-group view system:serviceaccounts -n <USERXX>-vertx-kubernetes-workshop
+oc new-project <evalsXX>-sso-kubernetes-workshop
+oc policy add-role-to-user view admin -n $(oc project -q)
+oc policy add-role-to-user view -n $(oc project -q) -z default
+oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default
 ----
 
 The first instruction creates the project. The 3 last instructions grant permissions in order to use all the
 OpenShift capabilities.
 
-In the OpenShift Web Console, you should see the newly created project. Click on it. It's empty, so let's deploy our
-first application.
+In the OpenShift Web Console, you should see the newly created project. Click on it. It's empty, which is perfectly fine for the moment, we will be deploying applications into it as well as the Red Hat Singel Sign-On.
 
-Lets build the source for our lab and ensure everything is in order.
 
-[source, bash]
-----
-cd vertx-kubernetes-workshop
-mvn clean install
-----
 
 
 

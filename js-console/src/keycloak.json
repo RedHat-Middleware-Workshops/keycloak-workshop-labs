@@ -1,0 +1,5 @@
+{
+  "realm" : "master",
+  "auth-server-url" : "<SERVER_URL>/auth",
+  "resource" : "js-console"
+}

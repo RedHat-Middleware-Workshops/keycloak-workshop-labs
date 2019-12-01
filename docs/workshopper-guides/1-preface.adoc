@@ -1,59 +1,56 @@
-== Preface - what happens when you mix reactive, containers and Cloud altogether...
+== Preface - What is Red Hat SSO / keycloak
 
-Let's start from the beginning.... _Vert.x_. What's Vert.x? That's a pretty good question, and probably a good start.
- If you go on the http://vertx.io[Vert.x web site], Vert.x is defined as _"a toolkit for building reactive
- applications on the JVM"_. This description is rather unclear, right? What's a _toolkit_? What are _reactive_
- applications? In this lab, we are going to explain these words, and build an application using Vert.x illustrating
- what Vert.x is. This application is going to be composed of _microservices_. Another buzzword that is currently trending, right ? Actually,
- Vert.x was already promoting _microservices_  before anyone else.
+Red Hat Single Sign-On (RH-SSO) is based on the Keycloak project and enables you to secure your web applications by providing Web single sign-on (SSO) capabilities based on popular standards such as SAML 2.0, OpenID Connect and OAuth 2.0. The RH-SSO server can act as a SAML or OpenID Connect-based Identity Provider, mediating with your enterprise user directory or 3rd-party SSO provider for identity information and your applications via standards-based tokens.
 
-The developed application is going to be:
+Keycloak is an open source Identity and Access Management solution aimed at modern applications and services. It makes it easy to secure applications and services with little to no code.
 
-* based on Vert.x (that's why you are here, right?)
-* distributed
-* built as a reactive system
-* (a bit) fun
+This page gives a brief introduction to RH-SSO and Keycloak and some of the features. For a full list of features refer to the https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/[documentation]
 
-This lab offers attendees an intro-level, hands-on session with Vert.x, from the first line of code, to making
-services, to consuming them and finally to assembling everything in a consistent reactive system. It illustrates what reactive systems are, what reactive programming is, and how to build applications based on reactive microservice**s**
-(and the **s** is important).
 
-Deploying and maintaining microservices is hard. Much harder than maintaining a monolith. The are many moving pieces
-that can change / evolve / crash at anytime. To help us deploying our microservices, we are going to use Kubernetes.
-Kubernetes (commonly referred to as "K8s") is an open-source system for automating deployment, scaling and management of
- containerized applications that was originally designed by Google and donated to the Cloud Native Computing Foundation.
-  It aims to provide a "platform for automating deployment, scaling, and operations of application containers across
-  clusters of hosts". In this lab, we are using a specific distribution of K8S named OpenShift that provide a few set
-   of features very useful to maintain our microservices. It's **NOT** required to deploy Vert.x applications on top
-   of Kubernetes. Bare metal is generally fine. We use Kubernetes in this lab because of the complexity involved when
-    dealing with multiple microservices, their updates, downtimes and so on.
+Trying RH-SSO is quick and easy. And we will take a deep dive into RH-SSO in this workshop. But first; What is RH-SSO?
 
-This is a BYOL (Bring Your Own Laptop) session, so bring your Windows, OSX, or Linux laptop. You need JDK 8+ on your
-machine, and Apache Maven (3.5+). On Windows, you will need Cygwin. The lab contain a section to install _minishift_,
- a version of Kubernetes running your laptop.
+Single-Sign On
 
-What you are going to learn:
+Users authenticate with RH-SSO rather than individual applications. This means that your applications don't have to deal with login forms, authenticating users, and storing users. Once logged-in to RH-SSO, users don't have to login again to access a different application.
 
-* What Vert.x is and how to use its asynchronous non-blocking development model
-* How to develop microservices with Vert.x with several types of services, and service discovery
-* How to deploy microservices on Kubernetes, and how Vert.x interacts with Kubernetes
-* What `verticles` are and how to use them 
-* How to use the Vert.x event bus to send and receive messages
-* How to expose HTTP endpoints with Vert.x, and also how to consume them
-* How to compose asynchronous actions
-* How to use several languages in the same application
-* How to use databases with Vert.x
-* How to manage failures with async results, futures, exception handlers and circuit breakers
-* How to use Vert.x with RxJava
-* How to scale microservices, and use Kubernetes resilience
+This also applied to logout. RH-SSO provides single-sign out, which means users only have to logout once to be logged-out of all applications that use RH-SSO.
+Kerberos bridge
 
-And many more...
+If your users authenticate to workstations with Kerberos (LDAP or active directory) they can also be automatically authenticated to RH-SSO without having to provide their username and password again after they log on to the workstation.
+Identity Brokering and Social Login
 
-This lab is an _à la carte_ lab. Once you have done the basic installation and introduction, you can pick one of the
-topics you are interested in. For instance, after the introduction, if you are interested in gRPC, you can jump to the
- gRPC section and try it out. We highly recommend to start at the beginning to understand the concepts behind Vert.x,
-  reactive systems, reactive programming, and microservices.
+Enabling login with social networks is easy to add through the admin console. It's just a matter of selecting the social network you want to add. No code or changes to your application is required.
 
- Don't expect to complete this lab in 3 hours, it will take you a lot more. But that's not a big deal. Pick the topic
-  you want, learn what you want, and come back later to learn more.
+RH-SSO can also authenticate users with existing OpenID Connect or SAML 2.0 Identity Providers. Again, this is just a matter of configuring the Identity Provider through the admin console.
+User Federation
+
+RH-SSO has built-in support to connect to existing LDAP or Active Directory servers. You can also implement your own provider if you have users in other stores, such as a relational database.
+Client Adapters
+
+RH-SSO Client Adapters makes it really easy to secure applications and services. We have adapters available for a number of platforms and programming languages, but if there's not one available for your chosen platform don't worry. RH-SSO is built on standard protocols so you can use any OpenID Connect Resource Library or SAML 2.0 Service Provider library out there.
+Gatekeeper
+
+You can also opt to use a proxy to secure your applications which removes the need to modify your application at all.
+Admin Console
+
+Through the admin console administrators can centrally manage all aspects of the RH-SSO server.
+
+They can enable and disable various features. They can configure identity brokering and user federation.
+
+They can create and manage applications and services, and define fine-grained authorization policies.
+
+They can also manage users, including permissions and sessions.
+Account Management Console
+
+Through the account management console users can manage their own accounts. They can update the profile, change passwords, and setup two-factor authentication.
+
+Users can also manage sessions as well as view history for the account.
+
+If you've enabled social login or identity brokering users can also link their accounts with additional providers to allow them to authenticate to the same account with different identity providers.
+Standard Protocols
+
+RH-SSO is based on standard protocols and provides support for OpenID Connect, OAuth 2.0, and SAML.
+Authorization Services
+
+If role based authorization doesn't cover your needs, RH-SSO provides fine-grained authorization services as well. This allows you to manage permissions for all your services from the RH-SSO admin console and gives you the power to define exactly the policies you need. 
 

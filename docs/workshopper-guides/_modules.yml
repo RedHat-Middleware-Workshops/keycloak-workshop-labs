@@ -6,12 +6,12 @@ modules:
     name: Preface
   1_1-settingup:
     name: Setting up
-  2-vertx:
-    name: Getting started with Vert.x
-  3-microservices:
-    name: Demystifying microservices
-  4-kubernetes:
-    name: Gettings Started with Kubernetes
+  2-keycloak:
+    name: Getting started with RH-SSO
+  3-configuration:
+    name: Configuring RH-SSO
+  4-firstapp:
+    name: Simple JS Console application
   5-application:
     name: The Micro-Trader Application
   6-quote-generator:
