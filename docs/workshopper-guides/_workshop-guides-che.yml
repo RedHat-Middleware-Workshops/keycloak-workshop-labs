@@ -31,8 +31,8 @@ modules:
   - 1-preface
   - 1_1-settingup
   - 2-vertx
-  - 3-microservices
-  - 4-kubernetes
+  - 3-configuration
+  - 4-firstapp
   - 5-application
   - 6-quote-generator
   - 7-portfolio

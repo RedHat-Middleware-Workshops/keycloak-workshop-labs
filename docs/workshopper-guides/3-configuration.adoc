@@ -1,170 +1,68 @@
-== Demystifying microservices
+== Configuring RH SSO server
+Now that we have the server installed, lets make a few basic configuration changes to get started. 
 
-Unless you spent the last year in a cave, you probably have heard about _microservices_.
-So what are _microservices_? To answer this questions, let's quote from a veteran:
+In this section we will view some of the current configuration and also add smtp config and email addresses so that our SSO server can communicate with the end users. We will then test our flow with Email verification and user registrations. 
 
-[quote, Martin Fowler, http://martinfowler.com/articles/microservices.html]
-The microservice architectural style is an approach to developing a single application as a suite of small services,
-each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These
-services are built around business capabilities and independently deployable by fully automated deployment machinery.
-There is a bare minimum of centralized management of these services, which may be written in different programming
-languages and use different data storage technologies.
+=== What is a Realm 
+A realm is the logical namespace for all configurations, options, for a given group or applications or services. A realm secures and manages security metadata for a set of users, applications, and registered identity brokers, clients etc. Users can be created within a specific realm within the Administration console. Roles (permission types) can be defined at the realm level and you can also set up user role mappings to assign these permissions to specific users. A user belongs to and logs into a realm. Realms are isolated from one another and can only manage and authenticate the users that they control.
 
-=== Microservice 101
+For this example we will configure our `master` realm which was created by default at installation time.
 
-_Microservices_ is an _architectural style_, which means it is a _specialization of element and relation types, together with
-constraints and how they can be used_ footnote:[This is the definition of _architecture styles_ from the Software
-Engineering Institute.]. I believe by now, I have left you more confused than you were before we started.
+=== The Master Realm
+The initial realm is the master realm. It is the highest level in the hierarchy of realms. Admin accounts in this realm have permissions to view and manage any other realm created on the server instance. When you define your initial admin account, you create an account in the master realm. Your initial login to the admin console will also be via the master realm.
 
-Not to worry. Let's take another approach. Why do we need _microservices_? In one word: **agility**
-footnote:[Ability to move quickly and easily, not related to the Agile methodologies]. Let's imagine, we have
-a rather large application. As a large application, the maintenance is a nightmare, adding features takes
- too much time, the technology used is very outdated (What? Corba is not cool anymore?), any change needs to pass a
- 50-steps process and be validated by 5 levels of management, the list goes on. Obviously there are several teams on the application with
-  different requirements and agendas. Well, we have such a _monster app_. How could we make the development and
-  maintenance of this application efficient? Microservices are one answer to this question. It aims to reduce the
-  _time to production_.
+It is recommended that you do not use the master realm to manage the users and applications in your organization. Reserve use of the master realm for super admins to create and manage the realms in your system. Following this security model helps prevent accidental changes and follows the tradition of permitting user accounts access to only those privileges and powers necessary for the successful completion of their current task.
 
-To do that end, the _microservice_ architectural style proposes to:
+It is possible to disable the master realm and define admin accounts within each individual new realm you create. Each realm has its own dedicated Admin Console that you can log into with local accounts. 
 
-1. split the application into a set of decoupled components providing defined `services` (_defined_ means with a
-known interface or API)
-2. allow the components to communicate with whatever protocol they choose, often REST, but not necessarily
-3. allow the components to use whatever languages and technologies they want
-4. allow each component to be developed, released, and deployed independently
-5. allow the deployments to be _automated_ in their own _pipeline_
-6. allow the orchestration of the whole application to be reduced to the bare minimum
+In our current example we choose to use the `master` realm. But this is not recommended for production use.
 
-In this lab, we won't address point 5, but you should know that Vert.x does not restrict how you deploy
-your components. You can employ whatever technology best suites your environment. Whether it is ssh, ansible, puppet, docker, cloud, fabric8, or even floppy disk (your choice of 3.5-inch or 5.25-inch).
+Lets get started with the configuration
 
-Point 6, however, is interesting and often misunderstood. It's pretty cool to develop independent pieces of software
-that magically interact at runtime. Yes, I said _magically_ but in technology we don't believe in magic. To make this happen, what we need is some form of service _discovery_ at runtime. The service discovery mechanism can achieve it's goal with any number of suitable means. These range from: hardcoding the service location in the code (which is generally a bad idea), using a DNS lookup service, or some more advanced techniques.
+Make sure you are logged into the SSO admin console. Once logged in click on menu at the right hand corner of the SSO Admin console.
 
-Having a service discovery mechanism allows our system components to interact transparently amongst each other regardless of location or environment. It also allows us to easily load-balance amongst our components through a round robin alogorithm, for example, thereby making our system more fault-tolerant (by locating another service provider when one breaks down).
+image::sso_adminprofile.png[Admin profile]
 
-Although by definition, microservice applications are not required to be distributed, they usually are in practice. This comes with all the distributed application benefits and constraints: consensus computation (FLP), CAP theorem, consistency, monitoring, and many other reasons to fail. So microservices applications need to be designed to accommodate failures from their early implementation stage.
+Click on `Manage account`, this will bring you to the Admin user profile. Make sure you setup a valid email address that is reachable and also fill in the name fields. 
+Once done press save and click on `Back to Security Admin Console`.
 
-Before we go further, there are a couple of points I would like to mention. _Microservices_ are **not** new and the concept is not rocket science. Academic papers from the 70's and 80's have defined (using different words) architectural styles very
-  close to this. Another very important point to understand is: microservices are not a silver bullet. (Unless well managed) they have the capacity to increase the complexity of your application due to their distributed nature. Lastly, a microservice architecture will not fix all your issues.
+Now goto the `realm settings` by clicking on the master Realm.
 
-The major concerns when it comes to microservices are rapid delivery, adaptation, independence and replaceability. Every microservice is made to be replaceable by another providing the same _service / API / interface_ (at the core, it's basically an application of the https://en.wikipedia.org/wiki/Liskov_substitution_principle[Liskov substitution principle]).
+Press the email Tab, and lets configure it.
+image::sso_adminemailconfig.png[Realm Email config]
 
-If you have been a developer for the last 10 years, you might want to ask what's the difference between microservices and SOA. For a lot of people it's about size. This is not always true because services don't necessarily have to be small which makes the term "microservice" quite misleading. Microservices and SOA differ in purpose but the basic concepts are similar:
+In our example we are using a gmail account. If you dont have a test email address, feel free to create one. ** Configuring gmail needs some additional steps, this part of the guide has been tested with gmail only.
 
-* service: a defined feature accessible by an API, a client, a proxy, anything
-* service provider: a component implementing a service
-* service consumer: a component consuming a service
-* service discovery: the mechanism used by a consumer to find a provider
+* If you are configuring with a test gmail account make sure to read the following https://support.google.com/mail/answer/7126229?visit_id=637108169937464461-766787457&rd=2#cantsignin[support guide] 
 
-Both approaches inherit from _service oriented computing_, aiming to decompose and manage independent pieces of
-software. You may have never heard about this even if you have used it: COM, Corba, Jini, OSGi, and web services are all
-different implementations of _service oriented computing_.
+Further more ensure that Enable SSL, Enable StartTLS and Enable Authentication are selected.
 
-Finally, there is a common misconception that microservices must be RESTful by nature. This couldn't be further from the truth. Microservices can employ any number interaction styles that best fit their purpose: RPC, events, messages, streams etc. In this lab we will be using RESTful services, async RPC, and message sources.
+Once done making changes `save`. 
 
-It tends to not be easy to use service discovery when we are not used to it. So, let's do a few exercises about it. To continue introducing
-Rx Java constructs, these exercises use the RX Java 2 API offered by Vert.x
+Now lets make a quick test. `Test Connection`, once pressed will report back if your configuration was successful. If it is, an email should arrive in your inbox.
 
-=== Exercise 1 - Publishing a service
+Perfect, now we have the email configuration. 
 
-In this first exercise, we are just going to publish a service. A service is described by a `record` containing
-enough metadata for a consumer to select the right service and create a _client_.
+Lets move on to the `Login` tab.
+image::sso_adminloginconfig.png[Realm Login settings]
 
-Open the `microservices-exercises/src/main/java/io/vertx/workshop/exercise/microservice/Exercise1Verticle.java` file. 
-This class already contains some code to create an HTTP endpoint using Vert.x Web, exposed on the port 8080.
-Once ready to serve, and to let the other parts of your system consume this service, we need to advertise it. This is
-achieved in the `publish` method that you need to write.
+Enable the following:
+1. `User Registration` , User registration allows new users to register to the SSO
+2. `Verify Email` , and this will ensure that we can verify the user by thier email.
 
-First you need to create a `record` for the service. The `io.vertx.reactivex.servicediscovery.types.HttpEndpoint`
-class contains methods to create `records` for an HTTP endpoint. Once you have the record, you call `rxPublish` on the
-Vert.x service discovery. This stores the record and let the other parts of your system be aware of its availability.
+Press `Save`
 
-[.assignment]
-****
-[source, java]
-----
-private Single<Record> publish(HttpServer server) {
-    // 1 - Create a service record using `io.vertx.reactivex.servicediscovery.types.HttpEndpoint.createRecord`.
-    // This record defines the service name ("greetings"), the host ("localhost"), the server port and the root ("/")
-    Record record = HttpEndpoint.createRecord("greetings", "localhost", server.actualPort(), "/");
+Now lets test our basic config. 
+Open a new browser session in privacy mode, or open another browser. 
+  * Ensure that you are not logged into the SSO admin panel in the newly opened browser sessions. 
 
-    // 2 - Call the rxPublish method with the created record and return the resulting single
-    return discovery.rxPublish(record);
-}
-----
-****
+Open the admin console in the new browser window. 
+It should show a login screen, with a link under the buttons to register. 
+Hit the register button and register a new user. Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. 
 
-Notice also the `stop` method from the verticle class. When the verticle is stopped we must unregister the service.
-For this, the published record is stored and used in the `rxUnpublish` method. As this operation is also asynchronous,
- the `stop` method uses a `Future` to indicate the completion of the method.
+Once you have registered you should see the following message:
+image::sso_adminemailverify.png[Realm Login settings]
 
-=== Exercise 2 - Consuming a service using service references
+Head over to your email and you should have recieved a new email. Click on the link in the email to verify this new user. Now you should be able to login to the admin console with your new user. 
 
-The previous exercise has published a service. Vert.x provides two ways to retrieve this service:
-
-* a low level API where the consumer retrieves the `record` (service description), retrieves a `reference` (service
-binding), and finally gets the _client_ (service object)
-* a higher-level API managing the record and reference parts transparently.
-
-In this exercise we use the first approach to better understand the different concepts. Open the `microservices-exercises/src/main/java/io/vertx/workshop/exercise/microservice/Exercise2Verticle.java` file, and follow the instructions to retrieve the service.
-
-TIP: `map` vs. `flatMap` - This code uses `map` and `flatMap`. `map` is used when the operation is synchronous and
-returns a non-reactive type. `flatMap` is used when the result is a reactive type (`Single`, `Maybe`, `Completable`,
-`Observable`, or `Flowable`). The result denotes an asynchronous operation completed "later". When this operation
-progresses or completes, the next processing stage is executed.
-
-TIP: the `WebClient` is an asynchronous Vert.x HTTP client. To use it, create a ` _request_ using `get` (or one of
-the other proposed methods), indicating the path. Then call `rxSend` to create a `Single` (reactive type with a
-_single_ result resolved "later"). Once you get the `HttpResponse` you can use the `bodyAsString` method to get the
-payload.
-
-[.assignment]
-****
-[source, java]
-----
-// 1 - Get the service record using `rxGetRecord`. Pass the lambda `svc -> svc.getName().equals("greetings")` as
-// parameter to retrieve the service with the name "greetings"
-// 2 - With the record (`.map`), get the service reference using `discovery.getReference`
-// 3 - With the reference (`.map`), get a WebClient (Vert.x http client) using `ref.getAs(WebClient.class)`
-// 4 - With the client (`.flatMapSingle`), invoke the service using: `client.get("/greetings/vert.x-low-level-api").rxSend()`
-// 5 - With the response (`.map`), extract the body as string (`bodyAsString` method)
-// 6 - Finally subscribe and print the result on the console
-discovery.rxGetRecord(svc -> svc.getName().equals("greetings"))
-    .map(rec -> discovery.getReference(rec))
-    .map(ref -> ref.getAs(WebClient.class))
-    .flatMapSingle(client -> client.get("/greetings/vert.x-low-level-api").rxSend())
-    .map(HttpResponse::bodyAsString)
-    .subscribe(res -> System.out.println("Result from the greeting service " + res));
-----
-****
-
-=== Exercise 3 - Consuming a service using sugars
-
-This exercise is equivalent to the previous one but uses the higher-level API. Use the method `io.vertx.reactivex.servicediscovery.types.HttpEndpoint#rxGetWebClient` to retrieve a `WebClient` directly.
-
-[.assignment]
-****
-[source, java]
-----
-// 1 - Get the Web Client using the `HttpEndpoint.rxGetWebClient` method. Use the same lambda as in the
-// previous exercise.
-// 2 - Invoke the HTTP service as in the previous exercise
-// 3 - Extract the body as String
-// 4 - Subscribe and display the result on the console
-// TODO
-HttpEndpoint.rxGetWebClient(discovery, svc -> svc.getName().equals("greetings"))
-    .flatMap(client -> client.get("/greetings/vert.x").rxSend())
-    .map(HttpResponse::bodyAsString)
-    .subscribe(res -> System.out.println("Result from the greeting service " + res));
-----
-****
-
-=== Time to go further
-
-Microservices are a great way to improve the _agility_ of your product. But, it introduces a lot of moving parts, and
- keeping everything on track is not a simple task. Service discovery lets the different parts discover one another and
-  interact, but what about deployment, monitoring, and other administration tasks? For these, we will look into
-  containers and Kubernetes in the next chapter.
-
-
+Great, so now we have some basic config for our RH-SSO server and its realm. Lets head off to the next section where we will deploy our first application. And subsequently configure it to use RH-SSO.
