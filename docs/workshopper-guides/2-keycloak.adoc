@@ -86,11 +86,8 @@ Now that SSO is installed lets login to our newly created SSO. For that click on
 
 image::sso_adminlogin.png[Login screen]
 
-You now have a running SSO server. Lets move on to do some basic configuration before we head on to using it with our apps.
 
 === Let's move on
-
-By now, you should have a better understanding of Vert.x and how to use it. But that's just the beginning. Serious
-things are coming ...
+You now have a running SSO server. Lets move on to do some basic configuration before we head on to using it with our apps.
 
 
