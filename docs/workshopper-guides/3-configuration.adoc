@@ -30,6 +30,7 @@ Once done press save and click on `Back to Security Admin Console`.
 Now goto the `realm settings` by clicking on the demojs Realm.
 
 Press the email Tab, and lets configure it.
+
 image::sso_adminemailconfig.png[Realm Email config]
 
 In our example we are using a gmail account. If you dont have a test email address, feel free to create one. ** Configuring gmail needs some additional steps, this part of the guide has been tested with gmail only.
@@ -45,6 +46,7 @@ Now lets make a quick test. `Test Connection`, once pressed will report back if 
 Perfect, now we have the email configuration. 
 
 Lets move on to the `Login` tab.
+
 image::sso_adminloginconfig.png[Realm Login settings]
 
 Enable the following:
@@ -62,6 +64,7 @@ It should show a login screen, with a link under the buttons to register.
 Hit the register button and register a new user. Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. 
 
 Once you have registered you should see the following message:
+
 image::sso_adminemailverify.png[Realm Login settings]
 
 Head over to your email and you should have recieved a new email. Click on the link in the email to verify this new user. Now you should be able to login to the admin console with your new user. 

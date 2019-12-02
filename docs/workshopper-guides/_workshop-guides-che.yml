@@ -33,8 +33,8 @@ modules:
   - 2-vertx
   - 3-configuration
   - 4-firstapp
-  - 5-application
-  - 6-quote-generator
+  - 5-usergroups
+  - 6-identityproviders
   - 7-portfolio
   - 8-traders
   - 9-audit

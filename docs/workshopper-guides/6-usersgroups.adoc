@@ -1,0 +1,90 @@
+== Users and Groups
+
+Lets start with a change in user attributes and we will do that by injecting claims to our tokens. 
+
+=== Adding claims to the tokens
+What if your applications want to know something else about users? Say you want to have an avatar available for your users.
+
+Keycloak makes it possible to add custom attributes to users as well as adding custom claims to tokens.
+
+First open Users and select the user you registered earlier. Click on attributes and add key avatar_url with value https://www.keycloak.org/resources/images/keycloak_logo_480x108.png. Click Add followed by Save.
+
+Now Keycloak knows the users avatar, but the application also needs access to this. We're going to add this through Client Scopes.
+
+Click on Client Scopes then Create. Select No template and Next.
+
+Fill in the following values:
+
+    Name: avatar
+    Consent Screen Text: Avatar
+
+Click on Save. Click on Mappers then Create.
+
+Fill in the following values:
+
+    Name: avatar
+    Mapper Type: User Attribute
+    User Attribute avatar_url
+    Token Claim Name: avatar_url
+    Claim JSON Type: String
+
+Click Save.
+
+Now we've created a client scope, but we also need to asign it to the client. Go to Clients and select js-console. Select Client Scopes.
+
+We're going to add it as a Default Client Scope. So select the avatar here and click Add selected. As it's a default scope it is added to the token by default, if it's set as an optional client scope the client has to explicitly request it with the scope parameter.
+
+Now go back to the JS Console and click Refresh.
+
+=== Requiring Consent
+So far we've assumed the JS Console is an internal trusted application, but what if it's a third party external application? In that case we probably want the user to grant access to what the application wants to have access to.
+
+Open the Keycloak `Admin Console`
+
+Go to `Clients`, select JS Console and turn on Consent Required. Go back to the JS Console and click Login again.
+
+Now reload your JS Console app RH-SSO will prompt the user to grant access to the application.
+
+You may want to turn this off again before continuing.
+
+
+=== User Roles and Groups
+Keycloak has supports for both roles and groups.
+
+Roles can be added realm-wide or to specific applications. There is also support for composite roles where a role can be a composite of other roles. This allows for instance creating a default role that can be added to all users, but in turn easily managing what roles all the users with the default role will have.
+
+Groups have a parent/child relationship where a child inherits from its parent. Groups can be mapped to roles, have attributes or just added directly to the token for your application to resolve its meaning.
+
+Let's start by creating a role and see it in the token.
+
+Open the Keycloak Admin Console.
+
+Click on Roles and Add Role. Set the Role Name to User and click `Save.
+
+Now click on Users and find the user you want to login with. Click on Role Mappings. Select user from Available roles and click Add selected.
+
+Go back to the JS Console and click Refresh, then Access Token JSON. Notice that there is a realm_access claim in the token that now contains the user role.
+
+Next let's create a Group. Go back to the Keycloak Admin Console. Click on New and use mygroup as the Name. Click on Attributes and add key user_type with value consumers.
+
+Now let's make sure this group and the claim is added to the token. Go to Client Scopes and click Create. Again select No template. For the name use myscope. Click on Mappers. Click on Create.
+
+Fill in the following values:
+
+    Name: groups
+    Mapper Type: Group Membership
+    Token Claim Name: groups
+
+Click Save then go back to Mappers and click Create again.
+
+Fill in the following values:
+
+    Name: type
+    Mapper Type: User Attribute
+    User Attribute: user_type
+    Token Claim Name: user_type
+    Claim JSON Type: String
+
+Find the js-console client again and add the myclaim as a default client scope.
+
+Go back to the JS Console and click Refresh, then Access Token JSON. Notice that there is a groups claim in the token as well as a user_type claim.

@@ -1,0 +1,42 @@
+== Event bus services - Portfolio service
+
+=== Open ID Connect (OIDC)
+
+
+=== Tokens
+
+
+
+=== Adding claims to the tokens
+What if your applications want to know something else about users? Say you want to have an avatar available for your users.
+
+Keycloak makes it possible to add custom attributes to users as well as adding custom claims to tokens.
+
+First open Users and select the user you registered earlier. Click on attributes and add key avatar_url with value https://www.keycloak.org/resources/images/keycloak_logo_480x108.png. Click Add followed by Save.
+
+Now Keycloak knows the users avatar, but the application also needs access to this. We're going to add this through Client Scopes.
+
+Click on Client Scopes then Create. Select No template and Next.
+
+Fill in the following values:
+
+    Name: avatar
+    Consent Screen Text: Avatar
+
+Click on Save. Click on Mappers then Create.
+
+Fill in the following values:
+
+    Name: avatar
+    Mapper Type: User Attribute
+    User Attribute avatar_url
+    Token Claim Name: avatar_url
+    Claim JSON Type: String
+
+Click Save.
+
+Now we've created a client scope, but we also need to asign it to the client. Go to Clients and select js-console. Select Client Scopes.
+
+We're going to add it as a Default Client Scope. So select the avatar here and click Add selected. As it's a default scope it is added to the token by default, if it's set as an optional client scope the client has to explicitly request it with the scope parameter.
+
+Now go back to the JS Console and click Refresh.

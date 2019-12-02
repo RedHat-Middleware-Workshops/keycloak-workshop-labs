@@ -12,18 +12,18 @@ modules:
     name: Configuring RH-SSO
   4-firstapp:
     name: Simple JS Console application
-  5-application:
-    name: The Micro-Trader Application
-  6-quote-generator:
-    name: The Quote Generator Service
-  7-portfolio:
-    name: The Portfolio Service
-  8-traders:
-    name: The compulsive traders
-  9-audit:
-    name: The Audit service
-  10-currency:
-    name: Resilience, Circuit Breaker and API Proxy
+  5-openidconnect:
+    name: Open ID Connect
+  6-userandgroups:
+    name: Users and groups
+  7-identityproviders:
+    name: Identity providers and OAuth
+  8-advanceconfig:
+    name: Advanced Configuration
+  9-springservice:
+    name: Securing Spring applications
+  10-quarkus:
+    name: Securing Quarkus applications with Keycloak
   conclusion:
     name: Conclusion  
   references:

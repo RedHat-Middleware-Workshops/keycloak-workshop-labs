@@ -1,23 +1,8 @@
 == APPENDIX: Setting up my own machine for the lab
 
-The labs are designed to run entirely on openshift, there is no mandatory requirement to install the following components. The following instructions are means for guidance for anyone who wants to try them out on their own machine. 
+The labs are designed to run entirely on openshift, there is no mandatory requirement to install the following components. The following instructions are means of guidance for anyone who wants to try them out on their own machine. 
 
-*Recommended path is to use the Openshift environment provided in this workshop.
-
-=== Minishift and Openshift Client
-
-Minishift provides a way to run Openshift (and so Kubernetes) on your laptop.
-
-1. Download minishift from https://github.com/minishift/minishift/releases
-2. Follow the instructions from https://docs.openshift.org/latest/minishift/getting-started/installing.html to install
- it.
-
-Be aware of the prerequisites in terms of hypervisors.
-
-At the end of the installation process, you should have the `minishift` executable in your `$PATH`. Then, follow the
-instructions from https://docs.openshift.org/latest/minishift/getting-started/quickstart.html to start minishift and
-access the OpenShift Client (command-line) and console (browser).
-
+*Recommended path is to use the Openshift RHMI/Integreatly environment provided in this workshop.
 
 === Java Development Kit
 
@@ -56,19 +41,8 @@ If you don't have an IDE, here are the steps to get started with Eclipse.
 
 [source]
 ----
-git clone https://github.com/jbossdemocentral/vertx-kubernetes-workshop.git
+git clone https://github.com/jbossdemocentral/sso-kubernetes-workshop.git
 ----
 
-You can import the code in your IDE as a Maven project. You can refer to your IDE documentation to know how to import Maven projects.
-
-For Eclipse:
-
-1. Click on `File - Import ... - Maven - Existing Maven Projects`
-2. Select the location where you cloned the sources
-3. Click _Finish_ and wait...
-
-You are going to see a couple of compilation errors. This is because Eclipse does not mark the `src/main/generated`
-directories as _source root_ by default. Right-click on `portfolio-service/src/main/generated` and select _Build Path
--> Use as Source Folder_.
 
 
