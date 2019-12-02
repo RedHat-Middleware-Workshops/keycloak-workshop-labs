@@ -95,7 +95,7 @@ image::openshift-entities.png[OpenShift Entities, 800]
 Now, you are ready to deploy your first application.
 
 === Your first project and deployment
-
+==== Java Script Client Adapter
 RH-SSO comes with a client-side JavaScript library that can be used to secure HTML5/JavaScript applications. The `JavaScript adapter` has built-in support for Cordova applications.
 
 The library can be retrieved directly from the server at /auth/js/keycloak.js. We load the the JavaScript adapter directly from Server as it will automatically be updated when you upgrade the server. If you copy the adapter to your web application instead, make sure you upgrade the adapter only after you have upgraded the server.
