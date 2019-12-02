@@ -96,7 +96,7 @@ Now, you are ready to deploy your first application.
 
 === Your first project and deployment
 
-RH-SSO comes with a client-side JavaScript library that can be used to secure HTML5/JavaScript applications. The JavaScript adapter has built-in support for Cordova applications.
+RH-SSO comes with a client-side JavaScript library that can be used to secure HTML5/JavaScript applications. The `JavaScript adapter` has built-in support for Cordova applications.
 
 The library can be retrieved directly from the server at /auth/js/keycloak.js. We load the the JavaScript adapter directly from Server as it will automatically be updated when you upgrade the server. If you copy the adapter to your web application instead, make sure you upgrade the adapter only after you have upgraded the server.
 
@@ -106,11 +106,23 @@ Alternatively you can also choose to place the json file in a different location
 
 In the workshop source code, locate the `js-console` and navigate to the directory in your CodeReady workspace.
 
+=== Authentication via JS
+By default to authenticate you need to call the login function. 
+However, there are also two options available to make the adapter automatically authenticate. You can pass login-required or check-sso to the init function. login-required will authenticate the client if the user is logged-in to RH-SSO or display the login page if not. check-sso will only authenticate the client if the user is already logged-in, if the user is not logged-in the browser will be redirected back to the application and remain unauthenticated.
+
+You can configure a silent check-sso option. With this feature enabled, your browser won’t do a full redirect to the RH-SSO server and back to your application, but this action will be performed in a hidden iframe, so your application resources only need to be loaded and parsed once by the browser when the app is initialized and not again after the redirect back from RH-SSO to your app. This is particularly useful in case of SPAs (Single Page Applications).
+
+In our case we use `kc.login(login)` which then redirects itself to the RH-SSO server to ensure that we have logged session. 
+
 Make sure you copy your SSO server URL (created in the previous section):
 e.g. in my case it looks something like this:
 ```
-https://sso-workshop.apps.cph-c747.open.redhat.com
+> oc get route sso
+NAME   HOST/PORT                                        PATH   SERVICES   
+sso    sso-workshop.apps.cph-c747.open.redhat.com       sso        <all>
 ```
+
+or just copy it from your browser, ensure you copy the protocol also e.g. 'https://...'
 
 Now open the `js-console/src/keycloak.json`
 
@@ -118,7 +130,7 @@ Change the following line "auth-server-url" with your SERVER_URL
 [source, js]
 ----
 {
-  "realm" : "master",
+  "realm" : "demojs",
   "auth-server-url" : "<SERVER_URL>/auth",
   "resource" : "js-console"
 }
@@ -127,7 +139,7 @@ Change the following line "auth-server-url" with your SERVER_URL
 
 Next open the `js-console/src/index.html`
 And replace the SERVER_URL in the <header> <src>
-
+For example:
 ```
 
     <script src="https://sso-workshop.apps.cph-c747.open.redhat.com/auth/js/keycloak.js"></script>
@@ -175,6 +187,43 @@ image::openshift-first-deployment.png[First deployment, 1024]
 
 Click on the route url and you should see the `js-console`.  This indicates that your first application was successfully deployed.
 
-And you might have noticed that we havent configured the RH-SSO for our js-console app yet. we will do that in the next section.
+And you might have noticed that we havent configured the RH-SSO for our js-console app yet.Lets go ahead and do that. 
+
+Click on the left menu bar item `Clients` 
+A list of clients will load. 
+Then Click the `Create` button
+
+Following is the information you need to fill. 
+To get the route to your js-console you can run the following command.
+
+[source, bash]
+----
+oc get route js-console
+----
+
+Fill in the details on the form and press save. 
+
+Now go back to your browser and relaod the JS Console app. You should be redirected to the Login page
+
+image::sso_adminloginconfig.png[Realm Login settings]
+
+Register a new user with a valid email address.
+After registration you should be able to login and should see the following Console with your registered users Name
+
+image::sso_demojsconsole.png[JS Console]
+
+Congratulations you have deployed your first JS App.
+
+
+
+
+
+
+
+
+
+
+
+
 
 

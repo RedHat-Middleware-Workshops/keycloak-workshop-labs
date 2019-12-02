@@ -6,7 +6,10 @@ In this section we will view some of the current configuration and also add smtp
 === What is a Realm 
 A realm is the logical namespace for all configurations, options, for a given group or applications or services. A realm secures and manages security metadata for a set of users, applications, and registered identity brokers, clients etc. Users can be created within a specific realm within the Administration console. Roles (permission types) can be defined at the realm level and you can also set up user role mappings to assign these permissions to specific users. A user belongs to and logs into a realm. Realms are isolated from one another and can only manage and authenticate the users that they control.
 
-For this example we will configure our `master` realm which was created by default at installation time.
+For this example we will configure our `demo` realm which needs to be created.
+Click on the left menu, and press the button `Add Realm`
+Lets give it a name `demojs`
+
 
 === The Master Realm
 The initial realm is the master realm. It is the highest level in the hierarchy of realms. Admin accounts in this realm have permissions to view and manage any other realm created on the server instance. When you define your initial admin account, you create an account in the master realm. Your initial login to the admin console will also be via the master realm.
@@ -15,18 +18,16 @@ It is recommended that you do not use the master realm to manage the users and a
 
 It is possible to disable the master realm and define admin accounts within each individual new realm you create. Each realm has its own dedicated Admin Console that you can log into with local accounts. 
 
-In our current example we choose to use the `master` realm. But this is not recommended for production use.
+Lets configure our new realm.
 
-Lets get started with the configuration
-
-Make sure you are logged into the SSO admin console. Once logged in click on menu at the right hand corner of the SSO Admin console.
+Ensure you are logged into the SSO admin console. Once logged in click on menu at the right hand corner of the SSO Admin console.
 
 image::sso_adminprofile.png[Admin profile]
 
 Click on `Manage account`, this will bring you to the Admin user profile. Make sure you setup a valid email address that is reachable and also fill in the name fields. 
 Once done press save and click on `Back to Security Admin Console`.
 
-Now goto the `realm settings` by clicking on the master Realm.
+Now goto the `realm settings` by clicking on the demojs Realm.
 
 Press the email Tab, and lets configure it.
 image::sso_adminemailconfig.png[Realm Email config]
