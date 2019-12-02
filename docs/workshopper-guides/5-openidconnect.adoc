@@ -68,3 +68,17 @@ Click on ID and Access Token links and you can see the custom attribute added in
 "avatar_url": "https://www.keycloak.org/resources/images/keycloak_logo_480x108.png",
 
 ----
+
+
+=== Requiring Consent
+So far we've assumed the JS Console is an internal trusted application, but what if it's a third party external application? In that case we probably want the user to grant access to what the application wants to have access to.
+
+Open the Keycloak `Admin Console`
+
+Go to `Clients`, select JS Console and turn on Consent Required. Go back to the JS Console and click Login again.
+
+Now reload your JS Console app RH-SSO will prompt the user to grant access to the application.
+
+image::sso_adminuserconsent.png[User Consent]
+
+You may want to turn this off again before continuing.

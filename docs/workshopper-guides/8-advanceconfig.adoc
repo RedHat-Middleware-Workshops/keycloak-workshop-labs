@@ -41,7 +41,8 @@ Find the user you are logged-in as and click on Sessions. Click on Logout all se
 Go back to the JS Console and click Refresh. Notice how you are now longer authenticated.
 
 Not only can admins log out users, but users themselves can logout other sessions from the account management console.
-
+You can go to the following link to access your account.
+<SERVER_URL>/auth/realms/demojs/account
 
 === Events
 Open the Keycloak Admin Console. Click on Events and Config. Turn on Save Events and click Save.
@@ -52,7 +53,7 @@ Go back to the Events in the Keycloak Admin Console and notice how there are now
 
 Not only can Keycloak save these events to be able to display them in the admin console and account management console, but you can develop your own event listener that can do what you want with the events.
 
-=== Configuring OTP
+=== Custom Code and Flows
 Keycloak has a huge number of SPIs that allow you to develop your own custom providers. You can develop custom user stores, protocol mappers, authenticators, event listeners and a large number of other things. We have about 100 SPIs so you can customize a lot!
 
 When we previously deployed Keycloak we also included a custom authenticator that enables users to login through email.
@@ -66,6 +67,9 @@ Click on Actions next to Browser-email forms. Then click on Add execution. Selec
 Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
 
 Open the JS Console and click Logout. For the email enter your email address and click Log In. Open your email and you should have a mail with a link which will authenticate you and bring you to the JS Console.
+
+
+=== Configuring OTP
 
 Now let's add OTP to the mix. Open the Keycloak Admin Console. Go back to the Browser-email flow. Click Actions and Add execution. Select OTP Form. Then mark it as Required.
 

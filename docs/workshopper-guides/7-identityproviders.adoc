@@ -6,13 +6,10 @@ Lets say you are running an e-commerce shop online. And today you have a couple 
 
 OAuth is a way to get access to protected data from an application. It's safer and more secure than asking users to log in with passwords. OAuth will also allow developers to securely get the user data. So is OAuth an Authentication mechanism? No its not. OAuth provides the framework to securely access that data. So OAuth asks for a token and gets it. For Authentication you would use Open ID Connect or SAML etc. So rather then sharing passwords between services OAuth is te protocol that helps brings the whole RESTful web together. Similar to when one uses Google or Githhub login to use other services from like e.g. Red Hat developer
 
-
-
-
 === Users from Github
-Now that we have users in Keycloak as well as loading users from LDAP let's get users from an external Identity Provider. For simplicity we'll use GitHub, but the same approach works for a corporate identity provider and other social networks.
+Now that we have users in Red Hat SSO as well as loading users from LDAP let's get users from an external Identity Provider. For simplicity we'll use GitHub, but the same approach works for a corporate identity provider and other social networks.
 
-Open the Keycloak Admin Console.
+Open the Red Hat SSO Admin Console.
 
 Click on Identity Providers. From the drop-down select GitHub. Copy the value in Redirect URI. You'll need this in a second when you create a new OAuth application in GitHub.
 
@@ -24,7 +21,7 @@ Fill in the following values:
     Homepage URL:
     Authorization callback URL:
 
-Now copy the value for Client ID and Client Secret from GitHub to the Keycloak Admin Console.
+Now copy the value for Client ID and Client Secret from GitHub to the Red Hat SSO Admin Console.
 
 We also want to add a mapper to retrieve the avatar from GitHub. Click on Mappers and Create.
 
@@ -35,7 +32,7 @@ Fill in the following values:
     Social Profile JSON Field Path: avatar_url
     User Attribute Name: avatar_url
 
-Try opening the JS Console again and instead of providing a username or password click on GitHub.
+Logout from the JS Console and instead of providing a username or password to login click on GitHub.
 
 Notice how it automatically knows your name and also has your avatar.
 
