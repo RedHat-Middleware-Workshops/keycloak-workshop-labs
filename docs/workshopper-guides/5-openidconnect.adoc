@@ -1,6 +1,4 @@
-== Event bus services - Portfolio service
-
-=== Open ID Connect (OIDC)
+== Open ID Connect (OIDC)
 
 
 === Tokens
