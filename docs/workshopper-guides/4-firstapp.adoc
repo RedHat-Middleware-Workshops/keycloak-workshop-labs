@@ -201,7 +201,8 @@ To get the route to your js-console you can run the following command.
 oc get route js-console
 ----
 
-Fill in the details on the form and press save. 
+Fill in the details on the form and press save. (An example shown in the following screenshot)
+image::sso_adminclientconfig.png[Realm Login settings]
 
 Now go back to your browser and relaod the JS Console app. You should be redirected to the Login page
 
