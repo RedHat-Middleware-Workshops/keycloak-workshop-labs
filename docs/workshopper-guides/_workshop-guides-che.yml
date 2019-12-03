@@ -1,5 +1,5 @@
 id: "sso-kubernetes-workshop"
-name: "SSO & Kubernetes - From zero to (micro)-hero"
+name: "SSO & Kubernetes - From zero to hero"
 
 content:
   url: https://raw.githubusercontent.com/sshaaf/sso-kubernetes-workshop.git/master/docs
