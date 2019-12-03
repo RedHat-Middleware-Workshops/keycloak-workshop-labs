@@ -1,19 +1,19 @@
 version: 1.0
-name: Vertx-workshop
-description: APB to deploy required infra components for the v2 version of Vertx-Workshop on an OpenShift cluster
+name: SSO-workshop
+description: APB to deploy required infra components for the v2 version of SSO-Workshop on an OpenShift cluster
 bindable: False
 async: optional
 tags:
 - workshop
 metadata:
   dependencies: []
-  displayName: "Vertx-Workshop Installer"
-  longDescription: "Installs the lab instructions and required components (Git server, Nexus, Eclipse Che, etc) for running the Vertx-Workshop https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2-guides"
+  displayName: "SSO-Workshop Installer"
+  longDescription: "Installs the lab instructions"
   console.openshift.io/iconClass: "pficon pficon-process-automation"
   providerDisplayName: "Red Hat, Inc."
 plans:
   - name: default
-    description: Deploys Vertx-Workshop v2 Infrastructure
+    description: Deploys SSO-Workshop v2 Infrastructure
     free: True
     metadata:
       displayName: Default
@@ -46,29 +46,5 @@ plans:
       display_type: string
       value: "openshift"
       display_group: Lab Guide
-    - name: infrasvcs_adm_user
-      title: Infra Services Admin User
-      description: Admin user for infrastructure services (Gogs, Che, ...)
-      type: string
-      default: "adminuser"
-      required: true
-      display_type: text
-      display_group: Workshop Infra Services
-    - name: infrasvcs_adm_pwd
-      title: Infra Services Admin Password
-      description: Admin password for infrastructure services (Gogs, Che, ...)
-      type: string
-      default: "adminpwd"
-      required: true
-      display_type: text
-      display_group: Workshop Infra Services
-    - name: infrasvcs_gogs_user_count
-      title: Number of gogs user for the lab
-      description: Set the number of users, this will create gogs users with git repos
-      type: string
-      default: "25"
-      required: true
-      display_type: text
-      display_group: Workshop Infra Services
 
       

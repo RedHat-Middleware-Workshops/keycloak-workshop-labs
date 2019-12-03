@@ -1,4 +1,4 @@
-== Advanced Configurations
+== Advanced Configuration
 
 === Keys and Signing
 By default Keycloak signs tokens with RS256, but we have support for other signing algorithms. We also have support for a single realm to have multiple keys.
