@@ -5,10 +5,17 @@ oc start-build js-console --from-dir . --follow
 oc new-app --image-stream=js-console:latest
 oc expose svc/js-console
 
+oc new-build --name sso-custom --binary --strategy source --image-stream redhat-sso73-openshift:1.0
+oc start-build sso-custom --from-dir . --follow
+oc new-app --image-stream=sso-custom:latest
+oc expose svc/sso-custom
+
+
+
+
 
 Make sure Less Secure apps is enabled and then go on the following url to enable your account access. 
 https://accounts.google.com/b/0/DisplayUnlockCaptcha
-
 
 
 ```

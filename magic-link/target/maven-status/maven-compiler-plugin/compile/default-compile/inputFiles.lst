@@ -1,0 +1,2 @@
+/opt/github.com/jbossdemocentral/sso-kubernetes-workshop/magic-link/src/main/java/org/keycloak/experimental/magic/MagicLinkFormAuthenticatorFactory.java
+/opt/github.com/jbossdemocentral/sso-kubernetes-workshop/magic-link/src/main/java/org/keycloak/experimental/magic/MagicLinkFormAuthenticator.java
