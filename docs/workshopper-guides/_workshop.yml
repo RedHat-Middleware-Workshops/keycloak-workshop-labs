@@ -28,8 +28,8 @@ modules:
   - 3-configuration
   - 4-firstapp
   - 5-openidconnect
-  - 6-identityproviders
-  - 7-usergroups
+  - 6-usersgroups
+  - 7-identityproviders
   - 8-advanceconfig
   - 9-springservice
   - 10-quarkus

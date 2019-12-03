@@ -14,7 +14,7 @@ modules:
     name: Simple JS Console application
   5-openidconnect:
     name: Open ID Connect
-  6-userandgroups:
+  6-usersgroups:
     name: Users and groups
   7-identityproviders:
     name: Identity providers and OAuth
