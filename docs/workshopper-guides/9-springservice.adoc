@@ -50,7 +50,7 @@ The realm model for the secured examples includes two users:
   "exp": 1510162193,
   "nbf": 0,
   "iat": 1510161593,
-  "iss": "https://secure-sso-sso.LOCAL_OPENSHIFT_HOSTNAME/auth/realms/master", 
+  "iss": "https://secure-sso-sso.LOCAL_OPENSHIFT_HOSTNAME/auth/realms/master", <1>
   "aud": "demoapp",
   "sub": "c0175ccb-0892-4b31-829f-dda873815fe8",
   "typ": "Bearer",
@@ -64,12 +64,12 @@ The realm model for the secured examples includes two users:
     "*"
   ],
   "realm_access": {
-    "roles": [ 
+    "roles": [ <2> 
       "example-admin"
     ]
   },
-  "resource_access": { 
-    "secured-example-endpoint": {
+  "resource_access": { <3>
+    "secured-example-endpoint": {<4>
       "roles": [
         "example-admin" 
       ]
@@ -82,7 +82,7 @@ The realm model for the secured examples includes two users:
     }
   },
   "name": "Alice InChains",
-  "preferred_username": "alice", 
+  "preferred_username": "alice", <5>
   "given_name": "Alice",
   "family_name": "InChains",
   "email": "alice@keycloak.org"
@@ -90,15 +90,15 @@ The realm model for the secured examples includes two users:
 
 ----
 
-- The iss field corresponds to the Red Hat SSO realm instance URL that issues the token. This must be configured in the secured endpoint deployments in order for the token to be verified.
+<1> The iss field corresponds to the Red Hat SSO realm instance URL that issues the token. This must be configured in the secured endpoint deployments in order for the token to be verified.
 
-- The roles object provides the roles that have been granted to the user at the global realm level. In this case alice has been granted the example-admin role. We will see that the secured endpoint will look to the realm level for authorized roles.
+<2> The roles object provides the roles that have been granted to the user at the global realm level. In this case alice has been granted the example-admin role. We will see that the secured endpoint will look to the realm level for authorized roles.
 
-- The resource_access object contains resource specific role grants. Under this object you will find an object for each of the secured endpoints.
+<3> The resource_access object contains resource specific role grants. Under this object you will find an object for each of the secured endpoints.
 
-- The resource_access.secured-example-endpoint.roles object contains the roles granted to alice for the secured-example-endpoint resource.
+<4> The resource_access.secured-example-endpoint.roles object contains the roles granted to alice for the secured-example-endpoint resource.
 
-- The preferred_username field provides the username that was used to generate the access token.
+<5> The preferred_username field provides the username that was used to generate the access token.
 
 
 === The application clients
@@ -212,20 +212,7 @@ Invoke the Secured service. Attach the access (bearer) token to the HTTP headers
     }
 ----
 
-Example 2. A sample GET Request Headers with an Access (Bearer) Token
-[source, bash]
-----
-    > GET /api/greeting HTTP/1.1
-    > Host: <SERVICE_HOST>
-    > User-Agent: curl/7.51.0
-    > Accept: */*
-    > Authorization: Bearer $TOKEN
-[source, bash]
-----
-
 <SERVICE_HOST> is the URL of the secured example endpoint. For more information, see Getting the Secured example application API endpoint.
-
-Verify the signature of the access token.
 
 The access token is a JSON Web Token, so you can decode it using the JWT Debugger, you use `jwt.io` for that.
 
