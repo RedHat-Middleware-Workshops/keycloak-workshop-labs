@@ -3,33 +3,55 @@
 === Keys and Signing
 By default Keycloak signs tokens with RS256, but we have support for other signing algorithms. We also have support for a single realm to have multiple keys.
 
-It's even possible to change signing algorithms and signing keys transparently without any impact to users.
+It's even possible to change signing algorithms and signing keys transparently without any impact to users. This is a powerful feature since over time, applications can change the way they authinticate. 
 
 Let's first try to change the signing algorithm for the JS console client.
 
-First let's see what algorithm is currently in use. Open the JS Console, login, then click on ID Token. This will display a rather cryptic string, which is the encoded token. Copy this value, making sure you select everything.
+First let's see what algorithm is currently in use. 
+- Open the JS Console, login, 
 
-In a different tab open the JWT validation extension. This is a custom extension to Keycloak that allows decoding a token as well as verifying the signature of the token.
+- then click on ID Token. 
+
+- This will display a rather cryptic string, which is the encoded token. 
+
+- Copy this value, making sure you select everything.
+
+In a different tab open the https://jwt.io/[JWT validation extension]. This is a custom extension to Keycloak that allows decoding a token as well as verifying the signature of the token.
 
 What we're interested is in the header. The field alg will show what signing algorithm is used to sign the token. It should show RS256.
 
-Now let's change this to the new cool kid on the block, ES256.
+Great so that gives us details of the current token in use.
 
-Open the Keycloak Admin Console in a new tab. Make sure you keep the JS Console open as we want to show how it gets new tokens without having to re-login.
 
-Click on Clients and select the js-console client. Under Fine Grained OpenID Connect Configuration switch Access Token Signature Algorithm and ID Token Signature Algorithm to ES256.
+Now let's change this to this to something new, maybe ES256.
 
-Now go back to the JS Console and click on Refresh. This will use the Refresh Token to obtain new updated ID and Access tokens.
+- Open the Keycloak Admin Console in a new tab. 
 
-Click on ID Token, copy it and open the JWT validation extension again. Notice that now the tokens are signed with ES256 instead of RS256.
+- Ensure you keep the JS Console open as we want to show how it gets new tokens without having to re-login.
+
+- Click on Clients and select the js-console client. 
+
+- Under Fine Grained OpenID Connect Configuration switch Access Token Signature Algorithm and ID Token Signature Algorithm to ES256.
+
+- Now go back to the JS Console and click on Refresh. This will use the Refresh Token to obtain new updated ID and Access tokens.
+
+- Click on ID Token, copy it and open the JWT validation extension again. Notice that now the tokens are signed with ES256 instead of RS256.
 
 While you're looking at the ID Token take a note of the kid, try to remember the first few characters. The kid refers to the keypair used to sign the token.
 
-Go back to the Keycloak Admin Console. Go to Realm Settings then Keys. What we're going to do now is introduce a new set of active keys and mark the previous keys as no longer the active keys.
+- Go back to the Keycloak Admin Console. 
 
-Click on Providers. From the drop-down select ecdsa-generated. Set the priority to 200 and click Save. As the priority is higher than the current active keys the new keys will be used next time tokens are signed.
+- Go to Realm Settings then Keys. What we're going to do now is introduce a new set of active keys and mark the previous keys as no longer the active keys.
 
-Now go back to the JS Console and clik on Refresh. Copy the token to the JWT validation extension. Notice that the kid has now changed.
+- Click on Providers. 
+
+- From the drop-down select ecdsa-generated. 
+- Set the priority to 200 and click Save. As the priority is higher than the current active keys the new keys will be used next time tokens are signed.
+
+image::sso_adminkeysescda.png[User Consent]
+
+
+- Now go back to the JS Console and clik on Refresh. Copy the token to the JWT validation extension. Notice that the kid has now changed.
 
 What this does is provide a seamless way of changing signatures and keys. Currently logged-in users will receive new tokens and cookies over time and after a while you can safely remove the old keys without affecting any logged-in users.
 
@@ -45,9 +67,17 @@ You can go to the following link to access your account.
 <SERVER_URL>/auth/realms/demojs/account
 
 === Events
-Open the Keycloak Admin Console. Click on Events and Config. Turn on Save Events and click Save.
+- Open the Keycloak Admin Console. 
 
-Go back to the JS Console and click Refresh. Logout. Then when you log in use the wrong password, then login with the correct password.
+- Click on Events and Config. 
+
+- Turn on Save Events and click Save.
+
+- Go back to the JS Console and click Refresh. 
+
+- Logout. 
+
+- Then when you log in use the wrong password, then login with the correct password.
 
 Go back to the Events in the Keycloak Admin Console and notice how there are now a list of events.
 
@@ -56,15 +86,28 @@ Not only can Keycloak save these events to be able to display them in the admin 
 === Custom Code and Flows
 Keycloak has a huge number of SPIs that allow you to develop your own custom providers. You can develop custom user stores, protocol mappers, authenticators, event listeners and a large number of other things. We have about 100 SPIs so you can customize a lot!
 
+
+
+
 When we previously deployed Keycloak we also included a custom authenticator that enables users to login through email.
 
-To enable this open the Keycloak Admin Console. Click on Authentication.
+- To enable this open the Keycloak Admin Console. Click on Authentication.
 
-Click on Copy to create a new flow based on the browser flow. Use the name browser-email. Click on Actions and Delete for Username Password Form and OTP Form.
+- Click on Copy to create a new flow based on the browser flow. 
 
-Click on Actions next to Browser-email forms. Then click on Add execution. Select Magic Link from the list. Once it's saved select Required for the Magic Link.
+- Use the name browser-email. 
 
-Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
+- Click on Actions and Delete for Username Password Form and OTP Form.
+
+- Click on Actions next to Browser-email forms. 
+
+- Then click on Add execution. 
+
+- Select Magic Link from the list. 
+
+- Once it's saved select Required for the Magic Link.
+
+- Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
 
 Open the JS Console and click Logout. For the email enter your email address and click Log In. Open your email and you should have a mail with a link which will authenticate you and bring you to the JS Console.
 
