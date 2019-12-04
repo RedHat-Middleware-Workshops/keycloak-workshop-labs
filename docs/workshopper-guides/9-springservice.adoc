@@ -47,12 +47,11 @@ Red Hat SSO users
 
 The realm model for the secured examples includes two users:
 
-admin
+*admin*
+- The admin user has a password of admin and is the realm administrator. This user has full access to the Red Hat SSO administration console, but none of the role mappings that are required to access the secured endpoints. You can use this user to illustrate the behavior of an authenticated, but unauthorized user.
 
-    The admin user has a password of admin and is the realm administrator. This user has full access to the Red Hat SSO administration console, but none of the role mappings that are required to access the secured endpoints. You can use this user to illustrate the behavior of an authenticated, but unauthorized user.
-alice
-
-    The alice user has a password of password and is the canonical application user. This user will demonstrate successful authenticated and authorized access to the secured endpoints. An example representation of the role mappings is provided in this decoded JWT bearer token:
+*alice*
+- The alice user has a password of password and is the canonical application user. This user will demonstrate successful authenticated and authorized access to the secured endpoints. An example representation of the role mappings is provided in this decoded JWT bearer token:
 
 [source, bash]
 ----
@@ -102,28 +101,26 @@ alice
 
 ----
 
-The iss field corresponds to the Red Hat SSO realm instance URL that issues the token. This must be configured in the secured endpoint deployments in order for the token to be verified.
+- The iss field corresponds to the Red Hat SSO realm instance URL that issues the token. This must be configured in the secured endpoint deployments in order for the token to be verified.
 
-The roles object provides the roles that have been granted to the user at the global realm level. In this case alice has been granted the example-admin role. We will see that the secured endpoint will look to the realm level for authorized roles.
+- The roles object provides the roles that have been granted to the user at the global realm level. In this case alice has been granted the example-admin role. We will see that the secured endpoint will look to the realm level for authorized roles.
 
-The resource_access object contains resource specific role grants. Under this object you will find an object for each of the secured endpoints.
+- The resource_access object contains resource specific role grants. Under this object you will find an object for each of the secured endpoints.
 
-The resource_access.secured-example-endpoint.roles object contains the roles granted to alice for the secured-example-endpoint resource.
+- The resource_access.secured-example-endpoint.roles object contains the roles granted to alice for the secured-example-endpoint resource.
 
-The preferred_username field provides the username that was used to generate the access token.
+- The preferred_username field provides the username that was used to generate the access token.
 
 
 === The application clients
 
 The OAuth 2.0 specification allows you to define a role for application clients that access secured resources on behalf of resource owners. The master realm has the following application clients defined:
 
-demoapp
+*demoapp*
+- This is a confidential type client with a client secret that is used to obtain an access token. The token contains grants for the alice user which enable alice to access the Thorntail, Eclipse Vert.x, Node.js and Spring Boot based REST example application deployments.
 
-    This is a confidential type client with a client secret that is used to obtain an access token. The token contains grants for the alice user which enable alice to access the Thorntail, Eclipse Vert.x, Node.js and Spring Boot based REST example application deployments.
-
-secured-example-endpoint
-
-    The secured-example-endpoint is a bearer-only type of client that requires a example-admin role for accessing the associated resources, specifically the Greeting service.
+*secured-example-endpoint*
+- The secured-example-endpoint is a bearer-only type of client that requires a example-admin role for accessing the associated resources, specifically the Greeting service.
 
 === Spring Boot SSO adapter configuration
 
@@ -159,34 +156,28 @@ keycloak.securityConstraints[0].securityCollections[0].patterns[0]=/api/greeting
 
 === Deploying the Secured example application using the oc CLI client
 
-Prerequisites
-
-    The example application created using the Fabric8 Launcher tool on a Minishift or CDK. For more information, see Creating the Secured example application using Fabric8 Launcher.
-
-    Your Fabric8 Launcher URL.
-
-    The oc client authenticated. For more information, see Authenticating the oc CLI client.
-
-Procedure
-
-Clone the project from GitHub. You can do this in your current workspace or you can create a new workspace with a spring stack.
-
-    https://github.com/snowdrop/secured-example.git
-
-Create a new OpenShift project.
+- Create a new OpenShift project.
 
     $ oc new-project evalsXX-spring (e.g. evals01)
 
-Navigate to the root directory of your application.
+- Navigate to the secured-example (cd secured-example)
 
-Deploy the Red Hat SSO server using the service.sso.yaml
+- Deploy the Red Hat SSO server using the service.sso.yaml
 
     $ oc create -f service.sso.yaml
 
+[source, bash]
+----
 $ mvn clean fabric8:deploy -Popenshift -DskipTests \
           -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
+----
 
 This process generates the uberjar file as well as the OpenShift resources and deploys them to the current project
+Following is the openshift webconsole from a deployed project
+
+image::_sso_springfinalocpshot.png[Secured App Deployment]
+
+Lets move on to test our application both on the terminal and the browser.
 
 === Authenticating to the Secured example application API endpoint
 
@@ -203,7 +194,7 @@ The secured example endpoint URL. For more information, see Getting the Secured 
 
 The jq command-line tool (optional). To download the tool and for more information, see https://stedolan.github.io/jq/.
 
-Lets request an access token with curl, the credentials, and <SSO_AUTH_SERVER_URL> and extract the token from the response with the jq command:
+Lets request an access token with curl, the credentials, and <SSO_AUTH_SERVER_URL>
 
 [source, bash]
 ----
@@ -212,25 +203,19 @@ curl -sk -X POST https://<SSO_AUTH_SERVER_URL>/auth/realms/master/protocol/openi
   -d username=alice\
   -d password=password \
   -d client_id=demoapp \
-  -d client_secret=1daa57a2-b60e-468b-a3ac-25bd2dc2eadc \
-  | jq -r '.access_token'
-
-eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJRek1nbXhZMUhrQnpxTnR0SnkwMm5jNTNtMGNiWDQxV1hNSTU1MFo4MGVBIn0.eyJqdGkiOiI0NDA3YTliNC04YWRhLTRlMTctODQ2ZS03YjI5MjMyN2RmYTIiLCJleHAiOjE1MDc3OTM3ODcsIm5iZiI6MCwiaWF0IjoxNTA3NzkzNzI3LCJpc3MiOiJodHRwczovL3NlY3VyZS1zc28tc3NvLWRlbW8uYXBwcy5jYWZlLWJhYmUub3JnL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6ImRlbW9hcHAiLCJzdWIiOiJjMDE3NWNjYi0wODkyLTRiMzEtODI5Zi1kZGE4NzM4MTVmZTgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJkZW1vYXBwIiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiMDFjOTkzNGQtNmZmOS00NWYzLWJkNWUtMTU4NDI5ZDZjNDczIiwiYWNyIjoiMSIsImNsaWVudF9zZXNzaW9uIjoiMzM3Yzk0MTYtYTdlZS00ZWUzLThjZWQtODhlODI0MGJjNTAyIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImJvb3N0ZXItYWRtaW4iXX0sInJlc291cmNlX2FjY2VzcyI6eyJzZWN1cmVkLWJvb3N0ZXItZW5kcG9pbnQiOnsicm9sZXMiOlsiYm9vc3Rlci1hZG1pbiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsInZpZXctcHJvZmlsZSJdfX0sIm5hbWUiOiJBbGljZSBJbkNoYWlucyIsInByZWZlcnJlZF91c2VybmFtZSI6ImFsaWNlIiwiZ2l2ZW5fbmFtZSI6IkFsaWNlIiwiZmFtaWx5X25hbWUiOiJJbkNoYWlucyIsImVtYWlsIjoiYWxpY2VAa2V5Y2xvYWsub3JnIn0.mjmZe37enHpigJv0BGuIitOj-kfMLPNwYzNd3n0Ax4Nga7KpnfytGyuPSvR4KAG8rzkfBNN9klPYdy7pJEeYlfmnFUkM4EDrZYgn4qZAznP1Wzy1RfVRdUFi0-GqFTMPb37o5HRldZZ09QljX_j3GHnoMGXRtYW9RZN4eKkYkcz9hRwgfJoTy2CuwFqeJwZYUyXifrfA-JoTr0UmSUed-0NMksGrtJjjPggUGS-qOn6OgKcmN2vaVAQlxW32y53JqUXctfLQ6DhJzIMYTmOflIPy0sgG1mG7sovQhw1xTg0vTjdx8zQ-EJcexkj7IivRevRZsslKgqRFWs67jQAFQA
+  -d client_secret=1daa57a2-b60e-468b-a3ac-25bd2dc2eadc
 ----
 
-
+extract the token and assign it on the shell like this TOKEN=
 
 <SSO_AUTH_SERVER_URL> is the url of the secure-sso service.
 
 The attributes, such as username, password, and client_secret are usually kept secret, but the above command uses the default provided credentials with this example for demonstration purpose.
 
-If you do not want to use jq to extract the token, you can run just the curl command and manually extract the access token.
-
-
 Invoke the Secured service. Attach the access (bearer) token to the HTTP headers:
 [source, bash]
 ----
-    $ curl -v -H "Authorization: Bearer <TOKEN>" http://<SERVICE_HOST>/api/greeting
+    $ curl -v -H "Authorization: Bearer $TOKEN" http://<SERVICE_HOST>/api/greeting
 
     {
         "content": "Hello, World!",
@@ -245,7 +230,7 @@ Invoke the Secured service. Attach the access (bearer) token to the HTTP headers
     > Host: <SERVICE_HOST>
     > User-Agent: curl/7.51.0
     > Accept: */*
-    > Authorization: Bearer <TOKEN>
+    > Authorization: Bearer $TOKEN
 [source, bash]
 ----
 
@@ -253,7 +238,7 @@ Invoke the Secured service. Attach the access (bearer) token to the HTTP headers
 
 Verify the signature of the access token.
 
-The access token is a JSON Web Token, so you can decode it using the JWT Debugger:
+The access token is a JSON Web Token, so you can decode it using the JWT Debugger, you use `jwt.io` for that.
 
 In a web browser, navigate to the JWT Debugger website.
 
@@ -282,7 +267,8 @@ Lets see how security is enforced, how you authenticate, and how you work with t
 
 ==== Perform an unauthenticated request:
 
- Click the Invoke button. 
+Click the Invoke button. 
+
 image::sso_springmain.png[Unauthenticated Secured Example Web Interface]
 
 The services responds with an HTTP 401 Unauthorized status code.
@@ -323,13 +309,17 @@ image::sso_springunauthorized.png[Unauthorized Error Message]
 Now that we have deployed an example greeting service and secured it. In most cases we would like to test and ensure integrations between services and components are working.
 
 In a your terminal application, navigate to the directory with your project.
-    Create the Red Hat SSO server application:
+- Create the Red Hat SSO server application:
 
-    oc create -f service.sso.yaml
+- Create a new project for integrations `evalsXX-spring-integration`
+[source, bash]
+----
+oc create -f service.sso.yaml
+----
 
-    Wait until the Red Hat SSO server is ready. Go to the Web console or view the output of oc get pods to check if the pod running the Red Hat SSO server is ready.
+- Wait until the Red Hat SSO server is ready. Go to the Web console or view the output of oc get pods to check if the pod running the Red Hat SSO server is ready.
 
-    Execute the integration tests:
+- Execute the integration tests:
 
-    mvn clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
+- mvn clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
 
