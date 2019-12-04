@@ -27,7 +27,7 @@ image::workshop-che-screenshot4.png[Creating workspace,600]
 Whats a Stack?
 A stack is a runtime configuration for a workspace. It contains a runtime recipe, meta information like tags, description, environment name, and security policies. Stacks are displayed within the user dashboard and stack tags are used to filter the project code samples that are available. A stack's recipe can be Kubernetes YAML, a Dockerfile or a Docker Compose file that will create a runtime to be embedded into the workspace. You can use any of Che's 30+ built-in stacks or author your own unique stack for your work.
 
-Choosing our stack for the lab; select the Spring boot Stack as shown in the image below. * You do not need to press the "Add Stack" button; rather just select the stack by clicking on its name
+Choosing our stack for the lab; select the `Spring boot` Stack as shown in the image below. * You do not need to press the "Add Stack" button; rather just select the stack by clicking on its name
 
 image::workshop-che-screenshot5.png[Creating workspace,600]
 
