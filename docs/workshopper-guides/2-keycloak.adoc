@@ -19,33 +19,32 @@ Red Hat SSO and Keycloak are used vastly and in different indesutries thereby it
 
 These define the resources needed to develop Red Hat Single Sign-On 7.3.3.GA server based deployment and can be split into the following two categories:
 
-    Templates using HTTPS and JGroups keystores and a truststore for the Red Hat Single Sign-On server, all prepared beforehand. These secure the TLS communication using passthrough TLS termination:
-        sso73-https: Red Hat Single Sign-On 7.3.3.GA backed by internal H2 database on the same pod.
+Templates using HTTPS and JGroups keystores and a truststore for the Red Hat Single Sign-On server, all prepared beforehand. These secure the TLS communication using passthrough TLS termination:
+    - sso73-https: Red Hat Single Sign-On 7.3.3.GA backed by internal H2 database on the same pod.
 
-        sso73-mysql: Red Hat Single Sign-On 7.3.3.GA backed by ephemeral MySQL database on a separate pod.
+    - sso73-mysql: Red Hat Single Sign-On 7.3.3.GA backed by ephemeral MySQL database on a separate pod.
         
-        sso73-mysql-persistent: Red Hat Single Sign-On 7.3.3.GA backed by persistent 
-        MySQL database on a separate pod.
+    - sso73-mysql-persistent: Red Hat Single Sign-On 7.3.3.GA backed by persistent MySQL database on a separate pod.
         
-        sso73-postgresql: Red Hat Single Sign-On 7.3.3.GA backed by ephemeral PostgreSQL database on a separate pod.
+    - sso73-postgresql: Red Hat Single Sign-On 7.3.3.GA backed by ephemeral PostgreSQL database on a separate pod.
         
-        sso73-postgresql-persistent: Red Hat Single Sign-On 7.3.3.GA backed by persistent PostgreSQL database on a separate pod. 
+    - sso73-postgresql-persistent: Red Hat Single Sign-On 7.3.3.GA backed by persistent PostgreSQL database on a separate pod. 
 
-    Templates using OpenShift’s internal service serving x509 certificate secrets to automatically create the HTTPS keystore used for serving secure content. The JGroups cluster traffic is authenticated using the AUTH protocol and encrypted using the ASYM_ENCRYPT protocol. The Red Hat Single Sign-On server truststore is also created automatically, containing the /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt CA certificate file, which is used to sign the certificate for HTTPS keystore. Moreover, the truststore for the Red Hat Single Sign-On server is pre-populated with the all known, trusted CA certificate files found in the Java system path. These templates secure the TLS communication using re-encryption TLS termination:
+Templates using OpenShift’s internal service serving x509 certificate secrets to automatically create the HTTPS keystore used for serving secure content. The JGroups cluster traffic is authenticated using the AUTH protocol and encrypted using the ASYM_ENCRYPT protocol. The Red Hat Single Sign-On server truststore is also created automatically, containing the /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt CA certificate file, which is used to sign the certificate for HTTPS keystore. Moreover, the truststore for the Red Hat Single Sign-On server is pre-populated with the all known, trusted CA certificate files found in the Java system path. These templates secure the TLS communication using re-encryption TLS termination:
 
-        sso73-x509-https: Red Hat Single Sign-On 7.3.3.GA with auto-generated HTTPS keystore and Red Hat Single Sign-On truststore, backed by internal H2 database. The ASYM_ENCRYPT JGroups protocol is used for encryption of cluster traffic.
+    - sso73-x509-https: Red Hat Single Sign-On 7.3.3.GA with auto-generated HTTPS keystore and Red Hat Single Sign-On truststore, backed by internal H2 database. The ASYM_ENCRYPT JGroups protocol is used for encryption of cluster traffic.
     
-        sso73-x509-mysql-persistent: Red Hat Single Sign-On 7.3.3.GA with auto-generated HTTPS keystore and Red Hat Single Sign-On truststore, backed by persistent MySQL database. The ASYM_ENCRYPT JGroups protocol is used for encryption of cluster traffic.
+    - sso73-x509-mysql-persistent: Red Hat Single Sign-On 7.3.3.GA with auto-generated HTTPS keystore and Red Hat Single Sign-On truststore, backed by persistent MySQL database. The ASYM_ENCRYPT JGroups protocol is used for encryption of cluster traffic.
     
-        sso73-x509-postgresql-persistent: Red Hat Single Sign-On 7.3.3.GA with auto-generated HTTPS keystore and Red Hat Single Sign-On truststore, backed by persistent PostgreSQL database. The ASYM_ENCRYPT JGroups protocol is used for encryption of cluster traffic. 
+    - sso73-x509-postgresql-persistent: Red Hat Single Sign-On 7.3.3.GA with auto-generated HTTPS keystore and Red Hat Single Sign-On truststore, backed by persistent PostgreSQL database. The ASYM_ENCRYPT JGroups protocol is used for encryption of cluster traffic. 
 
 Other templates that integrate with Red Hat Single Sign-On are also available:
 
-    eap64-sso-s2i: Red Hat Single Sign-On-enabled Red Hat JBoss Enterprise Application Platform 6.4.
+    - eap64-sso-s2i: Red Hat Single Sign-On-enabled Red Hat JBoss Enterprise Application Platform 6.4.
 
-    eap71-sso-s2i: Red Hat Single Sign-On-enabled Red Hat JBoss Enterprise Application Platform 7.1.
+    - eap71-sso-s2i: Red Hat Single Sign-On-enabled Red Hat JBoss Enterprise Application Platform 7.1.
 
-    datavirt63-secure-s2i: Red Hat Single Sign-On-enabled Red Hat JBoss Data Virtualization 6.3. 
+    - datavirt63-secure-s2i: Red Hat Single Sign-On-enabled Red Hat JBoss Data Virtualization 6.3. 
 
 These templates contain environment variables specific to Red Hat Single Sign-On that enable automatic Red Hat Single Sign-On client registration when deployed. Further on in the Advance Config section we will go over some of those environment variables and details.
 

@@ -6,9 +6,9 @@ In this section we will view some of the current configuration and also add smtp
 === What is a Realm 
 A realm is the logical namespace for all configurations, options, for a given group or applications or services. A realm secures and manages security metadata for a set of users, applications, and registered identity brokers, clients etc. Users can be created within a specific realm within the Administration console. Roles (permission types) can be defined at the realm level and you can also set up user role mappings to assign these permissions to specific users. A user belongs to and logs into a realm. Realms are isolated from one another and can only manage and authenticate the users that they control.
 
-For this example we will configure our `demo` realm which needs to be created.
+For this example we will configure our demo realm which needs to be created.
 Click on the left menu, and press the button `Add Realm`
-Lets give it a name `demojs`
+Lets give it a name `demojs`. We are calling it demojs, as the name denotes, our first applictation will be a simple Java Script Console. This console will help us do some fun exercises and learn more about Red Hat SSO. So whats the difference between the Master Realm that was already created and why did we create a new one? 
 
 
 === The Master Realm
@@ -18,13 +18,16 @@ It is recommended that you do not use the master realm to manage the users and a
 
 It is possible to disable the master realm and define admin accounts within each individual new realm you create. Each realm has its own dedicated Admin Console that you can log into with local accounts. 
 
-Lets configure our new realm.
+Lets configure our new realm demojs. Just a small config we should do before that. Since we plan to use emails lets add the Admin email account details too. 
 
 Ensure you are logged into the SSO admin console. Once logged in click on menu at the right hand corner of the SSO Admin console.
 
+Click on `Manage account`, this will bring you to the Admin user profile. 
+
 image::sso_adminprofile.png[Admin profile]
 
-Click on `Manage account`, this will bring you to the Admin user profile. Make sure you setup a valid email address that is reachable and also fill in the name fields. 
+Make sure you setup a valid email address that is reachable and also fill in the name fields. 
+
 Once done press save and click on `Back to Security Admin Console`.
 
 Now goto the `realm settings` by clicking on the demojs Realm.
@@ -33,7 +36,11 @@ Press the email Tab, and lets configure it.
 
 image::sso_adminemailconfig.png[Realm Email config]
 
-In our example we are using a gmail account. If you dont have a test email address, feel free to create one. ** Configuring gmail needs some additional steps, this part of the guide has been tested with gmail only.
+In our example we are using a gmail account. If you dont have a test email address, feel free to create one. 
+
+Configuring gmail needs some additional steps, this part of the guide has been tested with gmail only. 
+
+*And its strongly recommended not to use corporate email account to do this.*
 
 * If you are configuring with a test gmail account make sure to read the following https://support.google.com/mail/answer/7126229?visit_id=637108169937464461-766787457&rd=2#cantsignin[support guide] 
 
@@ -41,7 +48,8 @@ Further more ensure that Enable SSL, Enable StartTLS and Enable Authentication a
 
 Once done making changes `save`. 
 
-Now lets make a quick test. `Test Connection`, once pressed will report back if your configuration was successful. If it is, an email should arrive in your inbox.
+Now lets make a quick test. `Test Connection`, once pressed will report back if your configuration was successful. If it is, an email should arrive in your inbox, with a subject e.g. 
+'[KEYCLOAK] - SMTP test message'
 
 Perfect, now we have the email configuration. 
 
@@ -50,16 +58,22 @@ Lets move on to the `Login` tab.
 image::sso_adminloginconfig.png[Realm Login settings]
 
 Enable the following:
+
 1. `User Registration` , User registration allows new users to register to the SSO
+
 2. `Verify Email` , and this will ensure that we can verify the user by thier email.
 
 Press `Save`
 
 Now lets test our basic config. 
 Open a new browser session in privacy mode, or open another browser. 
+  
   * Ensure that you are not logged into the SSO admin panel in the newly opened browser sessions. 
 
-Open the admin console in the new browser window. 
+Open the admin console in the new browser window. i.e. <SERVER_URL>/auth/realms/demojs
+
+This is the link to our newly created realm demojs.
+
 It should show a login screen, with a link under the buttons to register. 
 Hit the register button and register a new user. Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. 
 

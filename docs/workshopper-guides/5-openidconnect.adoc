@@ -32,18 +32,23 @@ What if your applications want to know something else about users? Say you want 
 
 Red Hat SSO makes it possible to add custom attributes to users as well as adding custom claims to tokens.
 
-First open Users and select the user you registered earlier. Click on attributes and add key avatar_url with value https://www.keycloak.org/resources/images/Red Hat SSO_logo_480x108.png. Click Add followed by Save.
+- Ensure you are logged in as Admin
+- Lets first open Users 
+- Select the user you registered with earlier. 
+- Click on attributes and add key avatar_url with value https://www.keycloak.org/resources/images/keycloak_logo_480x108.png. 
+- Click Add followed by Save.
 
 Now Red Hat SSO knows the users avatar, but the application also needs access to this. We're going to add this through Client Scopes.
 
-Click on Client Scopes then Create. Select No template and Next.
+- Click on Client Scopes then Create. 
 
 Fill in the following values:
 
     Name: avatar
     Consent Screen Text: Avatar
 
-Click on Save. Click on Mappers then Create.
+- Click on Save. 
+- Click on Mappers then Create.
 
 Fill in the following values:
 
@@ -53,15 +58,17 @@ Fill in the following values:
     Token Claim Name: avatar_url
     Claim JSON Type: String
 
-Click Save.
+- Click Save.
 
-Now we've created a client scope, but we also need to asign it to the client. Go to Clients and select js-console. Select Client Scopes.
+Now we've created a client scope, but we also need to asign it to the client, so that our client 'js-console' can reflect the change as well.
 
-We're going to add it as a Default Client Scope. So select the avatar here and click Add selected. As it's a default scope it is added to the token by default, if it's set as an optional client scope the client has to explicitly request it with the scope parameter.
+- Go to Clients and select js-console. Select Client Scopes.
 
-Now go back to the JS Console and click Refresh. You should see a keycloak logo as your avatar on the main JS Console dashboard.
+- We're going to add it as a Default Client Scope. So select the avatar here and click 'Add selected'. As it's a default scope it is added to the token by default, if it's set as an optional client scope the client has to explicitly request it with the scope parameter.
 
-Click on ID and Access Token links and you can see the custom attribute added into the token as well. 
+- Now go back to the JS Console and click Refresh. You should see a keycloak logo as your avatar on the main JS Console dashboard.
+
+- Click on ID and Access Token links and you can see the custom attribute added into the token as well. 
 
 [source, json]
 ----
@@ -73,12 +80,30 @@ Click on ID and Access Token links and you can see the custom attribute added in
 === Requiring Consent
 So far we've assumed the JS Console is an internal trusted application, but what if it's a third party external application? In that case we probably want the user to grant access to what the application wants to have access to.
 
-Open the Keycloak `Admin Console`
+- Open the Keycloak `Admin Console`
 
-Go to `Clients`, select JS Console and turn on Consent Required. Go back to the JS Console and click Login again.
+- Go to `Clients`, select JS Console and turn on Consent Required.
 
-Now reload your JS Console app RH-SSO will prompt the user to grant access to the application.
+-  Press Save 
+
+- Go back to the JS Console and click Login again.
+
+Now you have successfully configured a consent. And you can see that it also shows the different attributes that you are consenting too. 
 
 image::sso_adminuserconsent.png[User Consent]
 
-You may want to turn this off again before continuing.
+
+Lets say if the user didnt want to consent any longer. They could goto to the accounts page and remove the consent. 
+
+Hit the account portal url e.g. <SERVER_URL>/auth/realms/demojs/account
+e.g. https://sso-evals01-sso-kubernetes-workshop.apps.cph-5a34.open.redhat.com/auth/realms/demojs/account
+
+You can press the `Revoke Grant` and premissions will be removed.
+image::sso_useraccountrevoke.png[Revoking grants]
+
+All the granted permissions and list of applictions will be listed. As you can see Account does not have a Consent, and hence does not offer the revoke options. This is very useful when multiple solutions an applications are connected to single sign on like Red Hat SSO.
+
+*You may want to turn this off again before continuing.*
+
+Congratulations you have completed this exercise. Lets move on the next section and get into some more details.
+

@@ -201,7 +201,7 @@ To get the route to your js-console you can run the following command.
 oc get route js-console
 ----
 
-Fill in the details on the form and press save. (An example shown in the following screenshot)
+Fill in the details on the form (e.g. in below screenshot) and press save. Ensure you use protocol with your route e.g. 'http://js-console-evals01-sso-kubernetes-workshop.apps.cph-5a34.open.redhat.com'(An example shown in the following screenshot)
 
 image::sso_adminclientconfig.png[Realm Client settings]
 
