@@ -1,4 +1,3 @@
-== Users and Groups
 You can manage users and groups in Red Hat SSO, and also import from different feredration providers e.g. LDAP and Kerberos. In this lab we only use the User, groups function provided with Red Hat SSO, and wont be importing from LDAP or Kerberos. However bare in mind that most of the customers would have an internal directory server where the users are stored. And Red Hat SSO can easily connect with them.
 
 Red Hat SSO has supports for both roles and groups.

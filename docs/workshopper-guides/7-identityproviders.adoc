@@ -1,4 +1,34 @@
 == Identity providers
+An Identity Broker is an intermediary service that connects multiple service providers with different identity providers. As an intermediary service, the identity broker is responsible for creating a trust relationship with an external identity provider in order to use its identities to access internal services exposed by service providers. 
+
+When using Red Hat Single Sign-On as an identity broker, users are not forced to provide their credentials in order to authenticate in a specific realm. Instead, they are presented with a list of identity providers from which they can authenticate.
+
+You can also configure a default broker. In this case the user will not be given a choice, but instead be redirected directly to the parent broker. The following diagram demonstrates the steps involved when using Red Hat Single Sign-On to broker an external identity provider: 
+
+image::identity_broker_flow.png[Identity brokering]
+
+1. User is not authenticated and requests a protected resource in a client application.
+
+2. The client applications redirects the user to Red Hat Single Sign-On to authenticate.
+
+3. At this point the user is presented with the login page where there is a list of identity providers supported by a realm.
+    
+4. User selects one of the identity providers by clicking on its respective button or link.
+
+5. Red Hat Single Sign-On issues an authentication request to the target identity provider asking for authentication and the user is redirected to the login page of the identity provider. The connection properties and other configuration options for the identity provider were previously set by the administrator in the Admin Console.
+
+6. User provides his credentials or consent in order to authenticate in the identity provider.
+
+7. Upon a successful authentication by the identity provider, the user is redirected back to Red Hat Single Sign-On with an authentication response. Usually this response contains a security token that will be used by Red Hat Single Sign-On to trust the authentication performed by the identity provider and retrieve information about the user.
+
+8. Now Red Hat Single Sign-On is going to check if the response from the identity provider is valid. If valid, it will import and create a new user or just skip that if the user already exists. If it is a new user, Red Hat Single Sign-On may ask the identity provider for information about the user if that info doesn’t already exist in the token. This is what we call identity federation. If the user already exists Red Hat Single Sign-On may ask him to link the identity returned from the identity provider with his existing account. We call this process account linking. What exactly is done is configurable and can be specified by setup of First Login Flow . At the end of this step, Red Hat Single Sign-On authenticates the user and issues its own token in order to access the requested resource in the service provider.
+
+9. Once the user is locally authenticated, Red Hat Single Sign-On redirects the user to the service provider by sending the token previously issued during the local authentication.
+
+10. The service provider receives the token from Red Hat Single Sign-On and allows access to the protected resource. 
+
+
+
 
 
 === OAUTH and OAUTH2

@@ -1,4 +1,3 @@
-== Configuring RH SSO server
 Now that we have the server installed, lets make a few basic configuration changes to get started. 
 
 In this section we will view some of the current configuration and also add smtp config and email addresses so that our SSO server can communicate with the end users. We will then test our flow with Email verification and user registrations. 

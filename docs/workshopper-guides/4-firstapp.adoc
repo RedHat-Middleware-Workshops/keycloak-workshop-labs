@@ -1,5 +1,3 @@
-== First step with Kubernetes
-
 Following a microservice approach will help you increase your _agility_. However, it does not come for free and
 requires a lot of discipline. It also stresses your deployment facilities. When the number of microservices grows, it
 very quickly becomes an issue to keep your system on track.

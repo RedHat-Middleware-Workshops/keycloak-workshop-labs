@@ -1,4 +1,3 @@
-== Securing Spring applications
 In this exercise we will create a greeting service , we will deploy a new sso server and test our applications. 
 Spring Boot has an SSO adapter, we will go in details on how thats configured and we will also run some integrations test. 
 Lets get started. 
@@ -213,7 +212,7 @@ Invoke the Secured service. Attach the access (bearer) token to the HTTP headers
     }
 ----
 
-    Example 2. A sample GET Request Headers with an Access (Bearer) Token
+Example 2. A sample GET Request Headers with an Access (Bearer) Token
 [source, bash]
 ----
     > GET /api/greeting HTTP/1.1
@@ -235,7 +234,7 @@ In a web browser, navigate to the JWT Debugger website.
 Select RS256 from the Algorithm drop down menu.
 Make sure the web form has been updated after you made the selection, so it displays the correct RSASHA256(…​) information in the Signature section. If it has not, try switching to HS256 and then back to RS256.
 
-    Paste the following content in the topmost text box into the VERIFY SIGNATURE section:
+Paste the following content in the topmost text box into the VERIFY SIGNATURE section:
 [source, bash]
 ----
         -----BEGIN PUBLIC KEY-----
@@ -282,11 +281,11 @@ image::sso_springinvokealice.png[The Result of an Authenticated Greeting Request
 
 ==== Perform an authenticated request as an admininstrator:
 
-    Click the Invoke button.
+- Click the Invoke button.
 
-    Confirm that this sends an unauthenticated request to the Greeting service.
+- Confirm that this sends an unauthenticated request to the Greeting service.
 
-    Click the Login button and log in as the admin user.
+- Click the Login button and log in as the admin user.
 
 image::sso_springadmin.png[Authenticated Secured Example Web Interface (as admin)]
 

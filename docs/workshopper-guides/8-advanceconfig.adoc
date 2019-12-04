@@ -1,4 +1,12 @@
-== Advanced Configuration
+In this excercise lets try some of the cusomtizations Red Hat SSO has to offer. 
+
+- Keys and Signing
+
+- Custom Code
+
+- OTP Tokens
+
+- Themes
 
 === Keys and Signing
 By default Keycloak signs tokens with RS256, but we have support for other signing algorithms. We also have support for a single realm to have multiple keys.
