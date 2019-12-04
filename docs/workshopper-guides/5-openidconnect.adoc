@@ -99,6 +99,7 @@ Hit the account portal url e.g. <SERVER_URL>/auth/realms/demojs/account
 e.g. https://sso-evals01-sso-kubernetes-workshop.apps.cph-5a34.open.redhat.com/auth/realms/demojs/account
 
 You can press the `Revoke Grant` and premissions will be removed.
+
 image::sso_useraccountrevoke.png[Revoking grants]
 
 All the granted permissions and list of applictions will be listed. As you can see Account does not have a Consent, and hence does not offer the revoke options. This is very useful when multiple solutions an applications are connected to single sign on like Red Hat SSO.
