@@ -58,7 +58,7 @@ Run the following command:
 oc get templates -n openshift -o name | grep -o 'sso73.\+'
 ----
 
-Which shold result in the following output; these are the list of templates installed on this Openshift cluster. We could also change the above expression to sso72 and would get the similar output for the SSO 7.2 release templates.
+Which should result in the following output; these are the list of templates installed on this Openshift cluster. We could also change the above expression to sso72 and would get the similar output for the SSO 7.2 release templates.
 
 ----
 sso73-https
@@ -85,7 +85,7 @@ Select the following template `Red Hat Single Sign-On 7.3 + PostgreSQL (Persiste
 Press Next. This will bring you to the Configuration section. 
 All the fields in this section denote the parameters that can be added to this template. Take a look at all the diferent parameters. 
 For now we will only change the SSO Administrator username and password. 
-I have chosen 'admin/pass' feel free to choose any, but make sure you remmember them or note them, since we will be using them again. 
+I have chosen 'admin/pass' feel free to choose any, but make sure you remember them or note them, since we will be using them again. 
 
 image::sso_install.png[SSO install Config]
 

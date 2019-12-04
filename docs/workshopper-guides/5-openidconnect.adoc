@@ -70,12 +70,17 @@ Now we've created a client scope, but we also need to asign it to the client, so
 
 - Click on ID and Access Token links and you can see the custom attribute added into the token as well. 
 
+- Refresh your JS Console
+
 [source, json]
 ----
 "avatar_url": "https://www.keycloak.org/resources/images/keycloak_logo_480x108.png",
 
 ----
 
+And also on the front page of the JS Console
+
+image::sso_jsconsoleuseravatar.png[User Consent]
 
 === Requiring Consent
 So far we've assumed the JS Console is an internal trusted application, but what if it's a third party external application? In that case we probably want the user to grant access to what the application wants to have access to.

@@ -33,7 +33,7 @@ Let's start by creating a role and see it in the token.
   }
 ----
 
-Notice that there is a realm_access claim in the token that now contains the user role.
+Refresh your js-console and notice that there is a `realm_access` claim in the token that now contains the user role.
 
 
 Next let's create a Group. 
@@ -66,7 +66,9 @@ Now let's make sure this group and the claim is added to the token.
 - Find the js-console client again and add the myclaim as a default client scope.
 
 - Finally add a user to this group, by going to the `Users`; 
+
 - Find your user and add group to it. 
+
 - When you login to the JS Console you will be able to see the claim.
 
 - Go back to the JS Console and click Refresh, then Access Token JSON. Notice that there is a groups claim in the token as well as a user_type claim.

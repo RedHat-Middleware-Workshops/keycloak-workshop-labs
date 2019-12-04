@@ -9,21 +9,33 @@ OAuth is a way to get access to protected data from an application. It's safer a
 === Users from Github
 Now that we have users in Red Hat SSO as well as loading users from LDAP let's get users from an external Identity Provider. For simplicity we'll use GitHub, but the same approach works for a corporate identity provider and other social networks.
 
-Open the Red Hat SSO Admin Console.
+- Open the Red Hat SSO Admin Console.
 
-Click on Identity Providers. From the drop-down select GitHub. Copy the value in Redirect URI. You'll need this in a second when you create a new OAuth application in GitHub.
+- Click on Identity Providers. 
 
-In a new tab open Register a new OAuth application.
+- From the drop-down select GitHub. 
 
-Fill in the following values:
+- Copy the value in Redirect URI. You'll need this in a second when you create a new OAuth application in GitHub.
+
+In a new tab open Github to register a new OAuth application.
+You can do this by either going to 'account settings/developer settings' or click this https://github.com/settings/developers[link]
+
+- Fill in the following values:
 
     Application name: Keycloak
-    Homepage URL:
-    Authorization callback URL:
+    Homepage URL: <JS CONSOLE URL>
+    Authorization callback URL: https://<SERVER_URL>/auth/realms/demojs/broker/github/endpoint
 
-Now copy the value for Client ID and Client Secret from GitHub to the Red Hat SSO Admin Console.
+[source, bash]
+----
+e.g. homepage url: http://js-console-sso-app-demo.apps.cph-e31a.open.redhat.com
+e.g. Authorizaiton call back url: https://sso1-sso-app-demo.apps.cph-e31a.open.redhat.com/auth/realms/demojs/broker/github/endpoint
+https://<SERVER_URL>/auth/realms/demojs/broker/github/endpoint
+----
 
-We also want to add a mapper to retrieve the avatar from GitHub. Click on Mappers and Create.
+- Now copy the value for Client ID and Client Secret from GitHub to the Red Hat SSO Admin Console.
+
+- We also want to add a mapper to retrieve the avatar from GitHub. Click on Mappers and Create.
 
 Fill in the following values:
 
