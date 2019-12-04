@@ -6,6 +6,7 @@ The lab environment is setup with out of the box components from RHMI(Red Hat Ma
 
 == Creating your workspace
 Ensure you are logged into to Che/CodeReady with your evalsXX. (here XX should be replaced with your user number e.g. 01,02.. etc.)
+
 Once logged in, you should see your own dashboard.  
 Following instructions will guide you in creating a workspace for this lab. 
 
@@ -32,7 +33,7 @@ image::workshop-che-screenshot5.png[Creating workspace,600]
 
 
 === Step 3: Import the lab project from github
-As showin in the image below, select GIT and press the add button to add the repo for this lab
+As showin in the image below, select `GIT` and press the add button to add the repo for this lab
 
 image::workshop-che-screenshot6.png[Creating workspace,600]
 
@@ -51,13 +52,13 @@ image::workshop-che-screenshot7.png[Creating workspace,600]
 The following are a few steps that will help you compelete the setup for your environment.
 If you are familiar with IDE (Integrated Development Environments), Che/CodeReady is no exception. It runs in your browser and has similar experince to running any IDE. 
 
-Run the following commands in the terminal to ensure that your environment is up and running, replace userXX with your username
+Run the following commands in the terminal to ensure that your environment is up and running, replace evalsXX with your username
 
 
 [source, bash]
 ----
 
-oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true -u <evalsXX> -p openshift
+oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true -u <evalsXX> -p <PASSWORD>
 
 ----
 
