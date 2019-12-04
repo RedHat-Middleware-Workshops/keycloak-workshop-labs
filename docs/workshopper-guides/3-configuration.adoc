@@ -36,6 +36,10 @@ Press the email Tab, and lets configure it.
 
 image::sso_adminemailconfig.png[Realm Email config]
 
+Further more ensure that Enable SSL, Enable StartTLS and Enable Authentication are selected.
+
+Once done making changes `save`. 
+
 In our example we are using a gmail account. If you dont have a test email address, feel free to create one. 
 
 Configuring gmail needs some additional steps, this part of the guide has been tested with gmail only. 
@@ -44,9 +48,8 @@ Configuring gmail needs some additional steps, this part of the guide has been t
 
 * If you are configuring with a test gmail account make sure to read the following https://support.google.com/mail/answer/7126229?visit_id=637108169937464461-766787457&rd=2#cantsignin[support guide] 
 
-Further more ensure that Enable SSL, Enable StartTLS and Enable Authentication are selected.
+- Ensure that you have less secure app access and also unlock captcha :  https://www.google.com/accounts/DisplayUnlockCaptcha
 
-Once done making changes `save`. 
 
 Now lets make a quick test. `Test Connection`, once pressed will report back if your configuration was successful. If it is, an email should arrive in your inbox, with a subject e.g. 
 '[KEYCLOAK] - SMTP test message'
