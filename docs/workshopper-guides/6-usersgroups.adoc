@@ -9,13 +9,17 @@ Groups have a parent/child relationship where a child inherits from its parent. 
 
 Let's start by creating a role and see it in the token.
 
-Open the Red Hat SSO Admin Console.
+- Open the Red Hat SSO Admin Console.
 
-Click on Roles and Add Role. Set the Role Name to User and click `Save.
+- Click on Roles and Add Role. 
 
-Now click on Users and find the user you want to login with. Click on Role Mappings. Select user from Available roles and click Add selected.
+- Set the Role Name to User and click `Save.
 
-Go back to the JS Console and click Refresh, then Access Token JSON. 
+- Now click on Users and find the user you want to login with. 
+
+- Click on Role Mappings. Select user from Available roles and click Add selected.
+
+- Go back to the JS Console and click Refresh, then Access Token JSON. 
 
 [source, json]
 ----
@@ -32,19 +36,26 @@ Go back to the JS Console and click Refresh, then Access Token JSON.
 Notice that there is a realm_access claim in the token that now contains the user role.
 
 
-Next let's create a Group. Go back to the Red Hat SSO Admin Console. Click on New and use mygroup as the Name. Click on Attributes and add key user_type with value consumers.
+Next let's create a Group. 
+- Go back to the Red Hat SSO Admin Console. 
+- Click on New and use mygroup as the Name. 
+- Click on Attributes and add key user_type with value consumers.
 
-Now let's make sure this group and the claim is added to the token. Go to Client Scopes and click Create. Again select No template. For the name use myscope. Click on Mappers. Click on Create.
+Now let's make sure this group and the claim is added to the token. 
+- Go to Client Scopes and click Create. 
+- For the name use myscope. 
+- Click on Mappers. 
+- Click on Create.
 
-Fill in the following values:
+- Fill in the following values:
 
     Name: groups
     Mapper Type: Group Membership
     Token Claim Name: groups
 
-Click Save then go back to Mappers and click Create again.
+- Click Save then go back to Mappers and click Create again.
 
-Fill in the following values:
+- Fill in the following values:
 
     Name: type
     Mapper Type: User Attribute
@@ -52,12 +63,13 @@ Fill in the following values:
     Token Claim Name: user_type
     Claim JSON Type: String
 
-Find the js-console client again and add the myclaim as a default client scope.
+- Find the js-console client again and add the myclaim as a default client scope.
 
-Finally add a user to this group, by going to the `Users`; find your user and add group to it. 
-When you login to the JS Console you will be able to see the claim.
+- Finally add a user to this group, by going to the `Users`; 
+- Find your user and add group to it. 
+- When you login to the JS Console you will be able to see the claim.
 
-Go back to the JS Console and click Refresh, then Access Token JSON. Notice that there is a groups claim in the token as well as a user_type claim.
+- Go back to the JS Console and click Refresh, then Access Token JSON. Notice that there is a groups claim in the token as well as a user_type claim.
 
 [source, json]
 ----
