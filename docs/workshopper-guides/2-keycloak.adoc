@@ -92,7 +92,7 @@ image::sso_install.png[SSO install Config]
 
 Press Next and complete the installation with the default selections. 
 
-Once compeleted, Openshift will start the installation procedure and you can view the progress the openshift console. Wait for the deployment to compelete. Once the deployment is finished. you should see the following on your openshift console. 
+Once compeleted, Openshift will start the installation procedure and you can view the progress in the openshift console. Wait for the deployment to compelete. Once the deployment is finished. you should see the following on your openshift console. 
 
 image::sso_installed.png[SSO installed]
 

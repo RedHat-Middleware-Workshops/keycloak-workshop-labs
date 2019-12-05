@@ -16,15 +16,15 @@ It's even possible to change signing algorithms and signing keys transparently w
 Let's first try to change the signing algorithm for the JS console client.
 
 First let's see what algorithm is currently in use. 
-- Open the JS Console, login, 
+<1> Open the JS Console, login, 
 
-- then click on ID Token. 
+<2> then click on ID Token. 
 
-- This will display a rather cryptic string, which is the encoded token. 
+<3> This will display a rather cryptic string, which is the encoded token. 
 
-- Copy this value, making sure you select everything.
+<4> Copy this value, making sure you select everything.
 
-In a different tab open the https://jwt.io/[JWT validation extension]. This is a custom extension to Keycloak that allows decoding a token as well as verifying the signature of the token.
+In a different tab open the https://jwt.io/[JWT validation extension]. 
 
 What we're interested is in the header. The field alg will show what signing algorithm is used to sign the token. It should show RS256.
 
@@ -33,30 +33,33 @@ Great so that gives us details of the current token in use.
 
 Now let's change this to this to something new, maybe ES256.
 
-- Open the Keycloak Admin Console in a new tab. 
+<1> Open the Keycloak Admin Console in a new tab. 
 
-- Ensure you keep the JS Console open as we want to show how it gets new tokens without having to re-login.
+<2> Ensure you keep the JS Console open as we want to show how it gets new tokens without having to re-login.
 
-- Click on Clients and select the js-console client. 
+<3> Click on Clients and select the js-console client. 
 
-- Under Fine Grained OpenID Connect Configuration switch Access Token Signature Algorithm and ID Token Signature Algorithm to ES256.
+<4> Under Fine Grained OpenID Connect Configuration switch Access Token Signature Algorithm and ID Token Signature Algorithm to ES256.
 
-- Now go back to the JS Console and click on Refresh. This will use the Refresh Token to obtain new updated ID and Access tokens.
+<5> Now go back to the JS Console and click on Refresh. This will use the Refresh Token to obtain new updated ID and Access tokens.
 
-- Click on ID Token, copy it and open the JWT validation extension again. Notice that now the tokens are signed with ES256 instead of RS256.
+<6> Click on ID Token, copy it and open the JWT validation extension again. Notice that now the tokens are signed with ES256 instead of RS256.
 
 While you're looking at the ID Token take a note of the kid, try to remember the first few characters. The kid refers to the keypair used to sign the token.
 
-- Go back to the Keycloak Admin Console. 
+<1> Go back to the Keycloak Admin Console. 
 
-- Go to Realm Settings then Keys. What we're going to do now is introduce a new set of active keys and mark the previous keys as no longer the active keys.
+<2> Go to Realm Settings then Keys. What we're going to do now is introduce a new set of active keys and mark the previous keys as no longer the active keys.
 
-- Click on Providers. 
+<3> Click on Providers. 
 
-- From the drop-down select ecdsa-generated. 
-- Set the priority to 200 and click Save. As the priority is higher than the current active keys the new keys will be used next time tokens are signed.
+image::sso_adminkeyselect.png[Events]
 
-image::sso_adminkeysescda.png[User Consent]
+<4> From the drop-down select ecdsa-generated. 
+
+<5> Set the priority to 200 and click Save. As the priority is higher than the current active keys the new keys will be used next time tokens are signed.
+
+image::sso_adminkeysescda.png[escda]
 
 
 - Now go back to the JS Console and clik on Refresh. Copy the token to the JWT validation extension. Notice that the kid has now changed.
@@ -75,19 +78,26 @@ You can go to the following link to access your account.
 <SERVER_URL>/auth/realms/demojs/account
 
 === Events
-- Open the Keycloak Admin Console. 
+Events are the system wide events, you can see each event regarding the events, e.g. is someone tried to login with wrong credentials and alot more. These details are important e.g. auditing or compliance usecases as well. 
 
-- Click on Events and Config. 
+<1> Open the Keycloak Admin Console. 
 
-- Turn on Save Events and click Save.
+<2> Click on Events and Config. 
 
-- Go back to the JS Console and click Refresh. 
+<3> Turn on Save Events and click Save.
 
-- Logout. 
+image::sso_adminevents.png[Events]
 
-- Then when you log in use the wrong password, then login with the correct password.
+
+<4> Go back to the JS Console and click Refresh. 
+
+<5> Logout. 
+
+<6> Then when you log in use the wrong password, then login with the correct password.
 
 Go back to the Events in the Keycloak Admin Console and notice how there are now a list of events.
+
+image::sso_adminloginevents.png[Events]
 
 Not only can Keycloak save these events to be able to display them in the admin console and account management console, but you can develop your own event listener that can do what you want with the events.
 
@@ -106,15 +116,20 @@ Ensure you are in the root directory e.g. sso-kubernetes-workshop.
 
 [source, bash]
 ----
+#build individual projects
 cd magic-link
 mvn clean compile package
 
 cd ../themes
 mvn clean compile package
 
+# copy the jar files
 cd ../sso-custom/stream/deployments
 cp ../../magic-link/target/magic-link.jar deployments/
 cp ../../themes/target/themes.jar deployments/
+
+# come back to the stream directory
+cd ..
 ----
 
 So we have now built the jar files and copied them to our working directory from where we will build our custom RH-SSO image. You can always create the images in an openshift namespace, so that all users and applications have access to it. In our case we have chosen to keep this to our project namespace only.
@@ -123,7 +138,7 @@ So we have now built the jar files and copied them to our working directory from
 ----
 
 # Create a new project
-oc new-project evals01-sso-custom-kubernetes-workshop
+oc new-project <evalsXX>-sso-custom-kubernetes-workshop
 
 # Create a build directive with Red Hat SSO official image stream.
 oc new-build --name custom-sso73-openshift --binary --strategy source --image-stream redhat-sso73-openshift:1.0
@@ -137,7 +152,7 @@ You can now also run `oc get imagestreams` which should render a similar output 
 Notice that we have named our custom image as `custom-sso73-openshift`
 [source, bash]
 ----
-custom-sso73-openshift  docker-registry.default.svc:5000/evals01-sso-kubernetes-workshop/custom-sso73-openshift   
+custom-sso73-openshift  docker-registry.default.svc:5000/<evalsXX>-sso-kubernetes-workshop/custom-sso73-openshift   
 ----
 
 Now that have the image ready to be deplyed we need to take one last step.
