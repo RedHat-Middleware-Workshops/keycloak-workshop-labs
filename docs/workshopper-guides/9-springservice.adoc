@@ -145,7 +145,7 @@ keycloak.securityConstraints[0].securityCollections[0].patterns[0]=/api/greeting
 
 === Deploying the Secured example application using the oc CLI client
 
-- Create a new OpenShift project.
+- Create a new OpenShift project. Remember to `replace evalsXX with your username`
 
     $ oc new-project evalsXX-spring (e.g. evals01)
 
@@ -287,7 +287,7 @@ Now that we have deployed an example greeting service and secured it. In most ca
 In a your terminal application, navigate to the directory with your project.
 - Create the Red Hat SSO server application:
 
-- Create a new project for integrations `evalsXX-spring-integration`
+- Create a new project for integrations `evalsXX-spring-integration`. Remember to `replace evalsXX with your username`
 [source, bash]
 ----
 oc create -f service.sso.yaml

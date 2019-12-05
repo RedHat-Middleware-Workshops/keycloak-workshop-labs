@@ -63,7 +63,7 @@ oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-sk
 ----
 
 We are going to use a specific project to host all the microservices developed in this workshop. A `project` is a
-namespace making easy to organize your different applications in OpenShift. In a terminal run:
+namespace making easy to organize your different applications in OpenShift. Remember to `replace evalsXX with your username`. In a terminal run:
 
 [source, bash]
 ----
