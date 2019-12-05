@@ -21,6 +21,7 @@ Remember to `replace evalsXX with your username`
 oc new-project <evalsXX>-quarkus
 ----
 
+Switch to this new project in your openshift console. the rest of the guide assumes the new SSO instance in this project.
 
 Lets create a new keycloak application
 - Open the template.json file in the directory keycloak.
