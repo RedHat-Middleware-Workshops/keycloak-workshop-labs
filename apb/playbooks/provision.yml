@@ -9,7 +9,7 @@
     openshift_master_url: 
     openshift_user_password:
     project_suffix: "-XX"
-    github_account: sshaaf
+    github_account: jbossdemocentral
     github_ref: master
     infrasvcs_adm_user: adminuser
     infrasvcs_adm_pwd: adminpwd

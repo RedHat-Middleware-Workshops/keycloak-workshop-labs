@@ -47,7 +47,7 @@ Configuring gmail needs some additional steps, this part of the guide has been t
 
 * If you are configuring with a test gmail account make sure to read the following https://support.google.com/mail/answer/7126229?visit_id=637108169937464461-766787457&rd=2#cantsignin[support guide] 
 
-- Ensure that you have less secure app access and also unlock captcha :  https://www.google.com/accounts/DisplayUnlockCaptcha
+- Ensure that you have `less secure app access` and also unlock captcha :  https://www.google.com/accounts/DisplayUnlockCaptcha
 
 
 Now lets make a quick test. `Test Connection`, once pressed will report back if your configuration was successful. If it is, an email should arrive in your inbox, with a subject e.g. 
@@ -76,8 +76,11 @@ Open the admin console in the new browser window. i.e. <SERVER_URL>/auth/realms/
 
 This is the link to our newly created realm demojs.
 
-It should show a login screen, with a link under the buttons to register. 
-Hit the register button and register a new user. Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. 
+<1> It should show a login screen, with a link under the buttons to register. 
+
+<2> Hit the register button and register a new user. 
+
+<3> Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. 
 
 Once you have registered you should see the following message:
 

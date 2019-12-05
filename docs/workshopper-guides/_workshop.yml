@@ -2,16 +2,16 @@ id: "sso-kubernetes-workshop"
 name: "SSO & Kubernetes - From zero to hero"
 
 content:
-  url: https://raw.githubusercontent.com/sshaaf/sso-kubernetes-workshop.git/master/docs
+  url: https://raw.githubusercontent.com/jbossdemocentral/sso-kubernetes-workshop.git/master/docs
 
 vars:
   OPENSHIFT_DOCS_BASE: "https://docs.openshift.com/container-platform/3.11"
   DOWNLOAD_CLIENT_WINDOWS: https://mirror.openshift.com/pub/openshift-v3/clients/3.11.16/windows/oc.zip
   DOWNLOAD_CLIENT_MAC: https://mirror.openshift.com/pub/openshift-v3/clients/3.11.16/macosx/oc.tar.gz
   DOWNLOAD_CLIENT_LIN64: https://mirror.openshift.com/pub/openshift-v3/clients/3.11.16/linux/oc.tar.gz
-  LABS_GIT_REPO: https://github.com/sshaaf/sso-kubernetes-workshop.git#master
-  LABS_DOWNLOAD_URL: https://github.com/sshaaf/sso-kubernetes-workshop/archive/master.zip
-  WEB_NODEJS_GIT_REPO: https://github.com/sshaaf/sso-kubernetes-workshop/tree/master/web-nodejs
+  LABS_GIT_REPO: https://github.com/jbossdemocentral/sso-kubernetes-workshop.git#master
+  LABS_DOWNLOAD_URL: https://github.com/jbossdemocentral/sso-kubernetes-workshop/archive/master.zip
+  WEB_NODEJS_GIT_REPO: https://github.com/jbossdemocentral/sso-kubernetes-workshop/tree/master/web-nodejs
   REMOTE_DEBUGGER_JDB: true
   REMOTE_DEBUGGER_JBDS: true
   REMOTE_DEBUGGER_IDEA: true

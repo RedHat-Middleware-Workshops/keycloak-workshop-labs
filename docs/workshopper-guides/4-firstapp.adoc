@@ -150,8 +150,9 @@ We use the S2i from Openshift and create a stream from our project. This has som
 
 We also use the httpd image-stream provided by default with Openshift. This is the Apache httpd server; hence our application will be packaged into an Apache web server.
 
-*before starting make sure that you have Code Ready workspace `Terminal` open. and that you have changed you directory too `js-console/src`
+*before starting make sure that you have Code Ready workspace `Terminal` open. 
 
+- and also ensure that you have changed you directory too `js-console/src`
 [source, bash]
 ----
 
