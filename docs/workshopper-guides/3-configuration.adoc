@@ -43,12 +43,16 @@ In our example we are using a gmail account. If you dont have a test email addre
 
 Configuring gmail needs some additional steps, this part of the guide has been tested with gmail only. 
 
-*And its strongly recommended not to use corporate email account to do this.*
+[IMPORTANT]
+====
+- And its strongly recommended not to use corporate email account to do this.
 
-* If you are configuring with a test gmail account make sure to read the following https://support.google.com/mail/answer/7126229?visit_id=637108169937464461-766787457&rd=2#cantsignin[support guide] 
+- If you are configuring with a test gmail account make sure to read the following https://support.google.com/mail/answer/7126229?visit_id=637108169937464461-766787457&rd=2#cantsignin[support guide] 
 
 - Ensure that you have `less secure app access` and also unlock captcha :  https://www.google.com/accounts/DisplayUnlockCaptcha
 
+- Recommended: Use an incongnito mode when changing access and unlocking catpcha; if there are multiple google accounts sessions in the same browser, some users have experienced issues in such a case.
+====
 
 Now lets make a quick test. `Test Connection`, once pressed will report back if your configuration was successful. If it is, an email should arrive in your inbox, with a subject e.g. 
 '[KEYCLOAK] - SMTP test message'
@@ -72,9 +76,6 @@ Open a new browser session in privacy mode, or open another browser.
   
   * Ensure that you are not logged into the SSO admin panel in the newly opened browser sessions. 
 
-Open the admin console in the new browser window. i.e. <SERVER_URL>/auth/realms/demojs
-
-This is the link to our newly created realm demojs.
 
 <1> It should show a login screen, with a link under the buttons to register. 
 
