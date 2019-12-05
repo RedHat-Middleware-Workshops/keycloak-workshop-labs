@@ -131,6 +131,7 @@ cp ../../themes/target/themes.jar deployments/
 ----
 
 So we have now built the jar files and copied them to our working directory from where we will build our custom RH-SSO image. You can always create the images in an openshift namespace, so that all users and applications have access to it. In our case we have chosen to keep this to our project namespace only.
+Remember to `replace evalsXX with your username`
 
 [source, bash]
 ----
@@ -147,7 +148,7 @@ oc start-build custom-sso73-openshift --from-dir . --follow
 
 
 You can now also run `oc get imagestreams` which should render a similar output as follows.
-Notice that we have named our custom image as `custom-sso73-openshift`
+Notice that we have named our custom image as `custom-sso73-openshift`. Remember to `replace evalsXX with your username`
 [source, bash]
 ----
 custom-sso73-openshift  docker-registry.default.svc:5000/<evalsXX>-sso-kubernetes-workshop/custom-sso73-openshift   
@@ -166,7 +167,7 @@ in the trigger section you will see something as follows
                             }
 
 ----
-
+Remember to `replace evalsXX with your username`
 Ensure that you can change the namespace to your new project. which should be `<evalsXX>-sso-custom-kubernetes-workshop`
 
 <1> Copy the contents of the template file
@@ -193,6 +194,8 @@ Its quite commmon that users of Red Hat SSO would need to change the default flo
 <3> Use the name `browser-email`. now select browser-email from the drop down list
 
 <4> Click on Actions and Delete for Username Password Form and OTP Form.
+
+image::sso_adminauthethicationdelete.png[Delete Actions]
 
 <5> Click on Actions next to Browser-email forms. 
 

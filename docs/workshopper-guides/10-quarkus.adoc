@@ -14,6 +14,8 @@ These endpoints are protected and can only be accessed if a client is sending a 
 - The /api/admin as the name denotes can only be accessed by admin users.
 
 Lets start by first creating a new openshift project. 
+Remember to `replace evalsXX with your username`
+
 [source, bash]
 ----
 oc new-project <evalsXX>-quarkus
