@@ -146,7 +146,7 @@ For example:
 
 
 Now that you have the basic config in place, lets go ahead and deploy our applicaton.
-We use the S2i from Openshift and create a stream from our project. This has some benefits. If we need to change anything in our app we will just start a new build. Incase you have missed anything, you could easily do the `start-build` again.
+We use the S2i (Source2Image) from Openshift and create a stream from our project. This has some benefits. If we need to change anything in our app we will just start a new build. Incase you have missed anything, you could easily do the `start-build` again.
 
 We also use the httpd image-stream provided by default with Openshift. This is the Apache httpd server; hence our application will be packaged into an Apache web server.
 

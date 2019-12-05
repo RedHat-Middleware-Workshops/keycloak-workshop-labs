@@ -16,6 +16,7 @@ It's even possible to change signing algorithms and signing keys transparently w
 Let's first try to change the signing algorithm for the JS console client.
 
 First let's see what algorithm is currently in use. 
+
 <1> Open the JS Console, login, 
 
 <2> then click on ID Token. 
@@ -149,7 +150,7 @@ oc start-build custom-sso73-openshift --from-dir . --follow
 Switch to this new project in your openshift console. the rest of the guide assumes the new SSO instance in this project.
 
 You can now also run `oc get imagestreams` which should render a similar output as follows.
-Notice that we have named our custom image as `custom-sso73-openshift`. Remember to `replace evalsXX with your username`
+Notice that we have named our custom image as `custom-sso73-openshift`. 
 [source, bash]
 ----
 custom-sso73-openshift  docker-registry.default.svc:5000/<evalsXX>-sso-kubernetes-workshop/custom-sso73-openshift   
@@ -183,10 +184,93 @@ image::openshift-templatecopy.png[Events]
 
 <4> remmember to key in the admin username and password and press create.
 
-Now lets wait for this deployment to be completed. Ensure that the deployment is successfull by clicking on the route.
+Openshift will deploy our new custom instance of Red Hat SSO. 
+Lets wait for it to be deployed successfully. 
+
+While openshift is deploying, lets also deploy our JS Console. 
+
+Now open the `js-console/src/keycloak.json`
+
+Change the following line "auth-server-url" with your SERVER_URL
+[source, js]
+----
+{
+  "realm" : "demojs",
+  "auth-server-url" : "<SERVER_URL>/auth",
+  "resource" : "js-console"
+}
+
+----
+
+Next open the `js-console/src/index.html`
+And replace the SERVER_URL in the <header> <src>
+For example:
+```
+
+    <script src="https://sso-workshop.apps.cph-c747.open.redhat.com/auth/js/keycloak.js"></script>
+
+```
+
+
+Before starting make sure that you have Code Ready workspace `Terminal` open. 
+- and also ensure that you have changed you directory too `js-console/src`
+[source, bash]
+----
+
+oc new-build --name js-console --binary --strategy source --image-stream httpd
+----
+
+Ok, so `oc new-build` should have set the right directives for our applicaiton. i.e. `js-console` which uses the httpd stream.
+
+Lets start our build; in the following command we specify that our build will be from our local source dir.
+[source, bash]
+----
+oc start-build js-console --from-dir . --follow
+----
+
+Once our build is successfull, lets create a new app with that build; this will be our js-console app.
+[source, bash]
+----
+oc new-app --image-stream=js-console:latest
+----
+
+And finally expose a route for our service so that we can connect to it externally.
+[source, bash]
+----
+
+oc expose svc/js-console
+----
+
+Once openshift has finished deploying the JS console and Red Hat SSO custom built. 
+Lets also create a client for the JS Console.
+
+Click on the left menu bar item `Clients` 
+A list of clients will load. 
+Then Click the `Create` button
+
+Following is the information you need to fill. 
+To get the route to your js-console you can run the following command.
+
+[source, bash]
+----
+oc get route js-console
+----
+
+<1> We have used Master realm in this example, feel free create your own realm. 
+Make sure that you have configured email as described in the earlier section on SSO Config. This needs to be done to get email for the magic link.
+
+<2> Also create a test user account for the realm.
+
+<3> Also fill in the details on the form (e.g. in below screenshot) and press save. Ensure you use protocol with your route e.g. 'http://js-console-evals01-custom-sso-kubernetes-workshop.apps.cph-5a34.open.redhat.com'(An example shown in the following screenshot)
+
+image::sso_adminclientconfig.png[Realm Client settings]
+
+Now go back to your browser and relaod the JS Console app. You should be redirected to the Login page
 
 When we previously deployed Keycloak we also included a custom authenticator that enables users to login through email. 
-Its quite commmon that users of Red Hat SSO would need to change the default flows and configuration. What if the a user wanted to make a magic link to be sent to the ones that are registered. or what if they wanted to change the system themes. or add another flow. Red Hat SSO is does that pretty nicely with the ability to add these custom flows to the realm. Lets get started and make a magic link flow.
+Its quite commmon that users of Red Hat SSO would need to change the default flows and configuration. What if the a user wanted to make a magic link to be sent to the ones that are registered. or what if they wanted to change the system themes. or add another flow. Red Hat SSO does that pretty nicely with the ability to add these custom flows to the realm. Lets get started and make a magic link flow.
+
+The source code for the magic-link is placed in the `magic-link/src`, do take a look at the `MagicLinkFromAuthenticator.java` to see how we create the magic link. The API is quite straight forward. 
 
 <1> To enable this open the Keycloak Admin Console. Click on Authentication.
 
@@ -198,18 +282,29 @@ Its quite commmon that users of Red Hat SSO would need to change the default flo
 
 image::sso_adminauthethicationdelete.png[Delete Actions]
 
-<5> Click on Actions next to Browser-email forms. 
 
-<6> Then click on Add execution. 
+<5> Then click on Add execution. 
 
-<7> Select Magic Link from the list. 
+<6> Select Magic Link from the list. 
 
-<8> Once it's saved select Required for the Magic Link.
+<7> Once it's saved select Required for the Magic Link.
 
-<9> Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
+<8> Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
 
-<10> Open the JS Console and click Logout. For the email enter your email address and click Log In. Open your email and you should have a mail with a link which will authenticate you and bring you to the JS Console.
+<9> Open the JS Console and click Logout. For the email enter your email address and click Log In. Open your email and you should have a mail with a link which will authenticate you and bring you to the JS Console.
 
+You should see the following screen, once you reload JS Console.
+
+image::sso_adminmagiclink.png[Magic Link]
+
+
+Congratulations! you have successfully done the following
+
+<1> Created a new Red Hat SSO image with custom code in it. 
+
+<2> You have deployed a custom flow, that is different from the normal login flow
+
+<3> Lastly you have learnt how to create your own realm and configure your client for it. 
 
 === Configuring OTP
 -- ADD OTP details and screenshot
