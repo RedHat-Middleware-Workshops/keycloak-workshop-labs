@@ -30,7 +30,7 @@ Lets create a new keycloak application
 - Paste the content and press next.
 
 - Ensure the following parameters are filled in:
-<1> Keycloak Administrator Password
+<1> Keycloak Administrator Username
 
 <2> Keycloak Administrator Password
 

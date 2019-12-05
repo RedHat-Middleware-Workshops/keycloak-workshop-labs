@@ -73,14 +73,17 @@ sso73-x509-postgresql-persistent
 Lets try to install from a template
 But first we want to know the different parameters our template will use. Today we choose a persistent Postgresql backed SSO installation. 
 
-- Open the openshift console
-- Click on the search field next to the button `Add to Project` and search for `SSO`
-- Press `View all results`
+<1> Open the openshift console
+
+<2> Click on the search field next to the button `Add to Project` and search for `SSO`
+
+<3> Press `View all results`
+
 image::openshift-sso_search.png[Search for SSO]
 
-Select the following template `Red Hat Single Sign-On 7.3 + PostgreSQL (Persistent)` by clicking on it.
+<4> Select the following template `Red Hat Single Sign-On 7.3 + PostgreSQL (Persistent)` by clicking on it.
 
-Press Next. This will bring you to the Configuration section. 
+<5> Press Next. This will bring you to the Configuration section. 
 All the fields in this section denote the parameters that can be added to this template. Take a look at all the diferent parameters. 
 For now we will only change the SSO Administrator username and password. 
 I have chosen 'admin/pass' feel free to choose any, but make sure you remember them or note them, since we will be using them again. 
@@ -89,11 +92,11 @@ image::sso_install.png[SSO install Config]
 
 Press Next and complete the installation with the default selections. 
 
-Once compeleted, Openshift will start the installation procedure and you can see that on your console. Once the installation is finished. you should see the following on your openshift console. 
+Once compeleted, Openshift will start the installation procedure and you can view the progress the openshift console. Wait for the deployment to compelete. Once the deployment is finished. you should see the following on your openshift console. 
 
 image::sso_installed.png[SSO installed]
 
-Now that SSO is installed lets login to our newly created SSO. For that click on the route in the newly created SSO app. 
+Now that SSO is installed lets login to our newly created SSO. Click on the link as denoted in the picture and it should take you to the Red Hat SSO main page. 
 
 image::sso_adminlogin.png[Login screen]
 
