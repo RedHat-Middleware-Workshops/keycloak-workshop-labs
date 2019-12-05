@@ -124,12 +124,10 @@ cd ../themes
 mvn clean compile package
 
 # copy the jar files
-cd ../sso-custom/stream/deployments
+cd ../sso-custom/stream
 cp ../../magic-link/target/magic-link.jar deployments/
 cp ../../themes/target/themes.jar deployments/
 
-# come back to the stream directory
-cd ..
 ----
 
 So we have now built the jar files and copied them to our working directory from where we will build our custom RH-SSO image. You can always create the images in an openshift namespace, so that all users and applications have access to it. In our case we have chosen to keep this to our project namespace only.
