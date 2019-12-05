@@ -33,6 +33,7 @@ Lets create a new keycloak application
 - Paste the content and press next.
 
 - Ensure the following parameters are filled in:
+
 <1> Keycloak Administrator Username
 
 <2> Keycloak Administrator Password
@@ -47,7 +48,11 @@ Wait for the installation to be finished.
 
 Perfect now we have the keycloak running. Lets login with our admin user account. 
 And lets create a new realm. 
+
 In the keycloak directory is a realm file, you should load that file when creating a new realm. It will load all the necessary settings. 
+To download the file on your laptop here is a link to the realm file hosted on github https://raw.githubusercontent.com/sshaaf/sso-kubernetes-workshop/master/security-openid-connect-quickstart/config/quarkus-realm.json[link]
+
+
 Once loaded, it will show you a success message. 
 
 Perfect now we have keycloak all set for our applicaiton. Lets go ahead and make one. 
@@ -76,7 +81,10 @@ quarkus.log.category."io.smallrye.jwt".level=TRACE
 
 ----
 
-<1> Open the application.properties file, and change the value of the property `quarkus.oidc.auth-server-url` to the newly deployed keycloak server url
+<1> Open the application.properties file, and change the value of the property `quarkus.oidc.auth-server-url` to the newly deployed keycloak server url, here is an example from user: evals01
+
+image::keycloak_httpurl.png[Keycloak url]
+
 
 <2> this is the Client name in our keycloak server, quite similar to our JS Console app in our previous excercise which was called `js-console`
 
@@ -189,13 +197,14 @@ Notice the change in the keycloak.json file
 The new addition here is the credentials field. 
 There is a bunch of other properties that can be added to this config json, based on what is being used on the client in keycloak. 
 So whats the difference this time? We have added extra credentials to our connection, which means that we expect anyone who is going to authenticate against our system will also add credentials in the call. So just a simple keycloak session on this client will not do. 
-This is how it looks in the keycloak console.
+
+Following is the Client config and how it looks in the keycloak console.
 
 image::keycloak_clientconfig.png[Keycloak Template]
 
 <1> Check the Access Type field is not public; rather `confidential` , Also if you look at the `Credentials` Tab you will see the the credentials used.
 
-<2> Also make sure you add the `Root url`, `Redirect URL`, `Admin URL` , `Web Origins` ; the url provided in the screen shot is an example, your URL would be the url for your applicaiton deployed. So lets deploy the application.
+<2> Also you will need to add the `Root url`, `Redirect URL`, `Admin URL` , `Web Origins` ; the url provided in the screen shot is an example, your URL would be the url for your applicaiton deployed. So lets deploy the application first
 
 To deploy the application lets run the following commands in our CodeReady Terminal
 
@@ -219,6 +228,12 @@ oc expose svc/kstart
 
 oc get route kstart
 ----
+
+Once the application is deployed, the console should look similar as follows
+
+image::keycloak_quarkusapp.png[Keycloak Template]
+
+
 
 If all is going well you should now see your application in Openshift console. 
 
