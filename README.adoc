@@ -1,2 +1,34 @@
-=== Installing the workshop
+# Setting up a the SSO Kubernetes Worskhop 
 
+The workshop is dependant on the Integreatly cluster from RHPDS. The instructions below can be executed on an Integreatly cluster using 3.11
+
+  ```
+  oc new-project labs-infra
+
+  oc run apb --restart=Never --image="quay.io/sshaaf/sso-kubernetes-workshop-apb" \
+             --image-pull-policy="Always" \
+             -- provision -vvv \
+             -e namespace="$(oc project -q)"  \
+             -e openshift_token=$(oc whoami -t) \
+             -e openshift_master_url=$(oc whoami --show-server)/console
+  ```
+
+to follow the logs
+  ```
+  oc logs apb -f
+  ```
+```
+for resource in sso73-image-stream.json \
+  sso73-https.json \
+  sso73-mysql.json \
+  sso73-mysql-persistent.json \
+  sso73-postgresql.json \
+  sso73-postgresql-persistent.json \
+  sso73-x509-https.json \
+  sso73-x509-mysql-persistent.json \
+  sso73-x509-postgresql-persistent.json
+do
+  oc replace -n openshift --force -f \
+  https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso73-dev/templates/${resource}
+done              
+```
