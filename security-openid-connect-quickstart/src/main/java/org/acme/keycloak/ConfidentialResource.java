@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>
  */
-//@Path("/api/confidential")
+@Path("/api/confidential")
 public class ConfidentialResource {
 
     @GET

@@ -1,6 +1,6 @@
 {
   "realm" : "quarkus",
-  "auth-server-url" : "http://localhost:8180/auth",
+  "auth-server-url" : "<SERVER_URL>/auth",
   "resource" : "backend-service",
   "credentials" : {
     "secret" : "secret"

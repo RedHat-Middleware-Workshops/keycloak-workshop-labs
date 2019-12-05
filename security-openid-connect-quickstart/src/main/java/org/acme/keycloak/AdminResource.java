@@ -26,12 +26,13 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>
  */
-//@Path("/api/admin")
-//@Authenticated
+
+// TODO ADD Annotiations
+
 public class AdminResource {
 
     @GET
-//    @RolesAllowed("admin")
+    // TODO
     @Produces(MediaType.TEXT_PLAIN)
     public String admin() {
         return "granted";

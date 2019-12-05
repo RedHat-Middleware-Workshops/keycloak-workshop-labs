@@ -32,6 +32,7 @@ modules:
   - 7-identityproviders
   - 8-advanceconfig
   - 9-springservice
+  - 10-quarkus
   - conclusion
   - references
   - appendix
