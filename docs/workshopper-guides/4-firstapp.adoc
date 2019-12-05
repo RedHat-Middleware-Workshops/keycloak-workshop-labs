@@ -184,9 +184,7 @@ oc expose svc/js-console
 image::openshift-first-deployment.png[First deployment, 1024]
 
 
-Click on the route url and you should see the `js-console`.  This indicates that your first application was successfully deployed.
-
-And you might have noticed that we havent configured the RH-SSO for our js-console app yet.Lets go ahead and do that. 
+Click on the route url and you should see the `js-console`.  This indicates that your first application was successfully deployed. But there still need to be more config done as it would return an error. As you might have noticed that we havent configured the RH-SSO for our js-console app yet.Since it throws us an error. Lets go ahead and do that. 
 
 Click on the left menu bar item `Clients` 
 A list of clients will load. 
