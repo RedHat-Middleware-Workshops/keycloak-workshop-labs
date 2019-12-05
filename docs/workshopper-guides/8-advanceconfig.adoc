@@ -9,7 +9,7 @@ In this excercise lets try some of the cusomtizations Red Hat SSO has to offer.
 - Themes
 
 === Keys and Signing
-By default Keycloak signs tokens with RS256, but we have support for other signing algorithms. We also have support for a single realm to have multiple keys.
+By default Red Hat SSO signs tokens with RS256, but we have support for other signing algorithms. We also have support for a single realm to have multiple keys.
 
 It's even possible to change signing algorithms and signing keys transparently without any impact to users. This is a powerful feature since over time, applications can change the way they authinticate. 
 
@@ -34,7 +34,7 @@ Great so that gives us details of the current token in use.
 
 Now let's change this to this to something new, maybe ES256.
 
-<1> Open the Keycloak Admin Console in a new tab. 
+<1> Open the Red Hat SSO Admin Console in a new tab. 
 
 <2> Ensure you keep the JS Console open as we want to show how it gets new tokens without having to re-login.
 
@@ -48,7 +48,7 @@ Now let's change this to this to something new, maybe ES256.
 
 While you're looking at the ID Token take a note of the kid, try to remember the first few characters. The kid refers to the keypair used to sign the token.
 
-<1> Go back to the Keycloak Admin Console. 
+<1> Go back to the Red Hat SSO Admin Console. 
 
 <2> Go to Realm Settings then Keys. What we're going to do now is introduce a new set of active keys and mark the previous keys as no longer the active keys.
 
@@ -68,7 +68,7 @@ image::sso_adminkeysescda.png[escda]
 What this does is provide a seamless way of changing signatures and keys. Currently logged-in users will receive new tokens and cookies over time and after a while you can safely remove the old keys without affecting any logged-in users.
 
 === Sessions
-Make sure you have the JS Console open in a tab and you're logged-in. Open the Keycloak Admin Console in another tab.
+Make sure you have the JS Console open in a tab and you're logged-in. Open the Red Hat SSO Admin Console in another tab.
 
 Find the user you are logged-in as and click on Sessions. Click on Logout all session.
 
@@ -81,7 +81,7 @@ You can go to the following link to access your account.
 === Events
 Events are the system wide events, you can see each event regarding the events, e.g. is someone tried to login with wrong credentials and alot more. These details are important e.g. auditing or compliance usecases as well. 
 
-<1> Open the Keycloak Admin Console. 
+<1> Open the Red Hat SSO Admin Console. 
 
 <2> Click on Events and Config. 
 
@@ -96,14 +96,14 @@ image::sso_adminevents.png[Events]
 
 <6> Then when you log in use the wrong password, then login with the correct password.
 
-Go back to the Events in the Keycloak Admin Console and notice how there are now a list of events.
+Go back to the Events in the Red Hat SSO Admin Console and notice how there are now a list of events.
 
 image::sso_adminloginevents.png[Events]
 
-Not only can Keycloak save these events to be able to display them in the admin console and account management console, but you can develop your own event listener that can do what you want with the events.
+Not only can Red Hat SSO save these events to be able to display them in the admin console and account management console, but you can develop your own event listener that can do what you want with the events.
 
 === Custom Code and Flows
-Keycloak has a huge number of SPIs that allow you to develop your own custom providers. You can develop custom user stores, protocol mappers, authenticators, event listeners and a large number of other things. We have about 100 SPIs so you can customize a lot!
+Red Hat SSO has a huge number of SPIs that allow you to develop your own custom providers. You can develop custom user stores, protocol mappers, authenticators, event listeners and a large number of other things. We have about 100 SPIs so you can customize a lot!
 
 
 ==== Creating and Adding custom code to RH-SSO Stream
@@ -132,7 +132,7 @@ cp ../../themes/target/themes.jar deployments/
 ----
 
 So we have now built the jar files and copied them to our working directory from where we will build our custom RH-SSO image. You can always create the images in an openshift namespace, so that all users and applications have access to it. In our case we have chosen to keep this to our project namespace only.
-Remember to `replace evalsXX with your username`
+Remember to `replace evalsXX with your username` and also ensure you are in the `sso-custom/stream` directory before running the following commands.
 
 [source, bash]
 ----
@@ -267,12 +267,12 @@ image::sso_adminclientconfig.png[Realm Client settings]
 
 Now go back to your browser and relaod the JS Console app. You should be redirected to the Login page
 
-When we previously deployed Keycloak we also included a custom authenticator that enables users to login through email. 
+When we previously deployed Red Hat SSO we also included a custom authenticator that enables users to login through email. 
 Its quite commmon that users of Red Hat SSO would need to change the default flows and configuration. What if the a user wanted to make a magic link to be sent to the ones that are registered. or what if they wanted to change the system themes. or add another flow. Red Hat SSO does that pretty nicely with the ability to add these custom flows to the realm. Lets get started and make a magic link flow.
 
 The source code for the magic-link is placed in the `magic-link/src`, do take a look at the `MagicLinkFromAuthenticator.java` to see how we create the magic link. The API is quite straight forward. 
 
-<1> To enable this open the Keycloak Admin Console. Click on Authentication.
+<1> To enable this open the Red Hat SSO Admin Console. Click on Authentication.
 
 <2> Click on Copy to create a new flow based on the browser flow. 
 
@@ -307,11 +307,12 @@ Congratulations! you have successfully done the following
 <3> Lastly you have learnt how to create your own realm and configure your client for it. 
 
 === Configuring OTP
+
 -- ADD OTP details and screenshot
 
 <1> Now let's add OTP to the mix. 
 
-<2> Open the Keycloak Admin Console. 
+<2> Open the Red Hat SSO Admin Console. 
 
 <3> Go back to the Browser-email flow. 
 
@@ -325,4 +326,5 @@ Open the JS Console and click Logout. Login again. After you've done the email b
 We didnt cover details on the Themes in this section, but you should now be able to change the theme in the realm settings. The new theme is for the login page only and should be called `sunrise`. Try it out!
 
 
-Congratulations in this section you have been able to customzie Red Hat SSO with Themes, changing keys, and adding custom code like the magic link. Lets head off to the next section where we will create our first Spring greeting service and secure it with Red Hat SSO.
+=== Achievement unlocked!
+Congratulations in this section you have been able to customzie Red Hat SSO with Themes, OTP integration, changing keys, and adding custom code like the magic link. Now you are almost ready for the real world deployment. Lets head off to the next section where we will create our first Spring greeting service and secure it with Red Hat SSO.

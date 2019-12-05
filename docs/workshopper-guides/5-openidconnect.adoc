@@ -110,5 +110,13 @@ All the granted permissions and list of applictions will be listed. As you can s
 
 *You may want to turn this off again before continuing.*
 
-Congratulations you have completed this exercise. Lets move on the next section and get into some more details.
+Congratulations you have completed this exercise. 
+
+- We have understood Open Id Connect
+
+- Comparision of SAML and OIDC
+
+- Configuring Client scopes, mappers and Grants. 
+
+Lets move on the next section and get into some more details.
 

@@ -32,7 +32,7 @@ image::identity_broker_flow.png[Identity brokering]
 
 
 === OAUTH and OAUTH2
-Lets say you are running an e-commerce shop online. And today you have a couple of million users. Business is growing. Now you are being approached by third-party application developers to integrate with your services; Lets assume they are running a chat service or a gaming platform, they would like to provide services to your customer and thiers. Also brining in new business. How can we handle such an integration?
+Lets say you are running an e-commerce shop online. And today you have a couple of million users. Business is growing. Now you are being approached by third-party application developers to integrate with your services; Lets assume they are running a chat service or a gaming platform, they would like to provide services to your customer and thiers. Also bringing in new business. How can we handle such an integration?
 
 OAuth is a way to get access to protected data from an application. It's safer and more secure than asking users to log in with passwords. OAuth will also allow developers to securely get the user data. So is OAuth an Authentication mechanism? No its not. OAuth provides the framework to securely access that data. So OAuth asks for a token and gets it. For Authentication you would use Open ID Connect or SAML etc. So rather then sharing passwords between services OAuth is te protocol that helps brings the whole RESTful web together. Similar to when one uses Google or Githhub login to use other services from like e.g. Red Hat developer
 
@@ -78,3 +78,20 @@ Logout from the JS Console and instead of providing a username or password to lo
 
 Notice how it automatically knows your name and also has your avatar.
 
+[IMPORTANT]
+====
+  If your email address for the registered SSO user is the same as your github account, your avatar will not be updated. 
+  This is by design, since the SSO user is takes priority if the attributes are the same. This also means if we had multiple identity providers with the same atrributes, SSO would always be updating that property rigorously.
+====
+
+Congratulations you have now successfully 
+
+- How identity providers work in Red Hat SSO.
+
+- configured Client scopes
+
+- Added a new identity provider
+
+- Created OAuth based connection with Github and registering your SSO server as an app. 
+
+Lets move on to the next section and do some more advanced customizaton and custom code loading.

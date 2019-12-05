@@ -211,7 +211,16 @@ After registration you should be able to login and should see the following Cons
 
 image::sso_demojsconsole.png[JS Console]
 
-Congratulations you have deployed your first JS App.
+
+Congratulations!
+
+- Configured your first SSO JS App.
+
+- deployed the JS App via image stream
+
+- And how the JS Adapter works.
+
+And it only get interesting from here on. This app is our basis for these excercises. Lets head off to the next section and what more can we do with OIDC.
 
 
 
