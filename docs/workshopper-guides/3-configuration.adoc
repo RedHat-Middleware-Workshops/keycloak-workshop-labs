@@ -35,7 +35,8 @@ Press the email Tab, and lets configure it.
 
 image::sso_adminemailconfig.png[Realm Email config]
 
-Further more ensure that Enable SSL, Enable StartTLS and Enable Authentication are selected.
+<1> Further more ensure that Enable SSL, Enable StartTLS and Enable Authentication are selected.
+<2> Also ensure that you have filled in the `From Display Name`, its not mandatory, but for this workshop if users are sharing emails, it will help alot.
 
 Once done making changes `save`. 
 
