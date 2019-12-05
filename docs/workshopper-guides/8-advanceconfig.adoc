@@ -169,35 +169,56 @@ in the trigger section you will see something as follows
 
 Ensure that you can change the namespace to your new project. which should be `<evalsXX>-sso-custom-kubernetes-workshop`
 
-Now lets wait for this deployment to be completed. 
+<1> Copy the contents of the template file
+
+<2> Goto the openshift console and press the add to project button and then Import YAML/JSON
+
+image::openshift-addtoproject.png[Events]
+
+<3> Paste the content and press next.
+
+image::openshift-templatecopy.png[Events]
+
+<4> remmember to key in the admin username and password and press create.
+
+Now lets wait for this deployment to be completed. Ensure that the deployment is successfull by clicking on the route.
 
 When we previously deployed Keycloak we also included a custom authenticator that enables users to login through email. 
 Its quite commmon that users of Red Hat SSO would need to change the default flows and configuration. What if the a user wanted to make a magic link to be sent to the ones that are registered. or what if they wanted to change the system themes. or add another flow. Red Hat SSO is does that pretty nicely with the ability to add these custom flows to the realm. Lets get started and make a magic link flow.
 
-- To enable this open the Keycloak Admin Console. Click on Authentication.
+<1> To enable this open the Keycloak Admin Console. Click on Authentication.
 
-- Click on Copy to create a new flow based on the browser flow. 
+<2> Click on Copy to create a new flow based on the browser flow. 
 
-- Use the name browser-email. 
+<3> Use the name `browser-email`. now select browser-email from the drop down list
 
-- Click on Actions and Delete for Username Password Form and OTP Form.
+<4> Click on Actions and Delete for Username Password Form and OTP Form.
 
-- Click on Actions next to Browser-email forms. 
+<5> Click on Actions next to Browser-email forms. 
 
-- Then click on Add execution. 
+<6> Then click on Add execution. 
 
-- Select Magic Link from the list. 
+<7> Select Magic Link from the list. 
 
-- Once it's saved select Required for the Magic Link.
+<8> Once it's saved select Required for the Magic Link.
 
-- Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
+<9> Now to use this new flow when users login select Bindings and select browser-email for the Browser flow.
 
-Open the JS Console and click Logout. For the email enter your email address and click Log In. Open your email and you should have a mail with a link which will authenticate you and bring you to the JS Console.
+<10> Open the JS Console and click Logout. For the email enter your email address and click Log In. Open your email and you should have a mail with a link which will authenticate you and bring you to the JS Console.
 
 
 === Configuring OTP
+-- ADD OTP details and screenshot
 
-Now let's add OTP to the mix. Open the Keycloak Admin Console. Go back to the Browser-email flow. Click Actions and Add execution. Select OTP Form. Then mark it as Required.
+<1> Now let's add OTP to the mix. 
+
+<2> Open the Keycloak Admin Console. 
+
+<3> Go back to the Browser-email flow. 
+
+<4> Click Actions and Add execution. 
+
+<5> Select OTP Form. Then mark it as Required.
 
 Open the JS Console and click Logout. Login again. After you've done the email based login you will be prompted to configure OTP. You'll need Google Authenticator or FreeOTP on your phone to try this out.
 
