@@ -145,15 +145,18 @@ keycloak.securityConstraints[0].securityCollections[0].patterns[0]=/api/greeting
 
 === Deploying the Secured example application using the oc CLI client
 
-- Create a new OpenShift project. Remember to `replace evalsXX with your username`
+<1> Create a new OpenShift project. Remember to `replace evalsXX with your username`
 
     $ oc new-project evalsXX-spring (e.g. evals01)
 
-- Navigate to the secured-example (cd secured-example)
+<2> Navigate to the secured-example (cd secured-example)
 
-- Deploy the Red Hat SSO server using the service.sso.yaml
+<3> Deploy the Red Hat SSO server using the service.sso.yaml
 
     $ oc create -f service.sso.yaml
+    
+<4> Switch to this new project in your openshift console. the rest of the guide assumes the new SSO instance in this project.
+
 
 [source, bash]
 ----

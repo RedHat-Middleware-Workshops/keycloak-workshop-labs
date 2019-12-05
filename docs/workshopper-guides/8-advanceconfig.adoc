@@ -146,6 +146,7 @@ oc new-build --name custom-sso73-openshift --binary --strategy source --image-st
 oc start-build custom-sso73-openshift --from-dir . --follow
 ----
 
+Switch to this new project in your openshift console. the rest of the guide assumes the new SSO instance in this project.
 
 You can now also run `oc get imagestreams` which should render a similar output as follows.
 Notice that we have named our custom image as `custom-sso73-openshift`. Remember to `replace evalsXX with your username`
