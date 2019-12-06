@@ -198,7 +198,7 @@ curl -sk -X POST https://<SSO_AUTH_SERVER_URL>/auth/realms/master/protocol/openi
   -d client_secret=1daa57a2-b60e-468b-a3ac-25bd2dc2eadc
 ----
 
-extract the token and assign it on the shell like this TOKEN=
+extract the token and assign it on the shell like this `TOKEN=`
 
 <SSO_AUTH_SERVER_URL> is the url of the secure-sso service.
 
@@ -217,7 +217,7 @@ Invoke the Secured service. Attach the access (bearer) token to the HTTP headers
 
 <SERVICE_HOST> is the URL of the secured example endpoint. For more information, see Getting the Secured example application API endpoint.
 
-The access token is a JSON Web Token, so you can decode it using the JWT Debugger, you use `jwt.io` for that.
+The access token is a JSON Web Token, so you can decode it using the http://jwt.io[JWT Debugger].
 
 In a web browser, navigate to the JWT Debugger website.
 
@@ -271,6 +271,8 @@ image::sso_springinvokealice.png[The Result of an Authenticated Greeting Request
 
 ==== Perform an authenticated request as an admininstrator:
 
+`user: admin, pass:admin`
+
 - Click the Invoke button.
 
 - Confirm that this sends an unauthenticated request to the Greeting service.
@@ -300,5 +302,7 @@ oc create -f service.sso.yaml
 
 - Execute the integration tests:
 
-- mvn clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
-
+[source, bash]
+----
+ mvn clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
+----
