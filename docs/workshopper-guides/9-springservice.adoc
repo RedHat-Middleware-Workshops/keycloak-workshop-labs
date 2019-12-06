@@ -158,8 +158,13 @@ keycloak.securityConstraints[0].securityCollections[0].patterns[0]=/api/greeting
 <4> Switch to this new project in your openshift console. the rest of the guide assumes the new SSO instance in this project.
 
 
+
+
 [source, bash]
 ----
+
+export MAVEN_OPTS="-Xmx1024M -Xss128M -XX:MetaspaceSize=512M -XX:MaxMetaspaceSize=1024M -XX:+CMSClassUnloadingEnabled"
+
 $ mvn clean fabric8:deploy -Popenshift -DskipTests \
           -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
 ----
@@ -304,5 +309,8 @@ oc create -f service.sso.yaml
 
 [source, bash]
 ----
+
+export MAVEN_OPTS="-Xmx1024M -Xss128M -XX:MetaspaceSize=512M -XX:MaxMetaspaceSize=1024M -XX:+CMSClassUnloadingEnabled"
+
  mvn clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth\n"}')
 ----
