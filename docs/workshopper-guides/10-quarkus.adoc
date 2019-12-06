@@ -198,14 +198,6 @@ The new addition here is the credentials field.
 There is a bunch of other properties that can be added to this config json, based on what is being used on the client in keycloak. 
 So whats the difference this time? We have added extra credentials to our connection, which means that we expect anyone who is going to authenticate against our system will also add credentials in the call. So just a simple keycloak session on this client will not do. 
 
-Now Go back to the SSO Admin console, and configure the `backend-service` client with the correct url from your `kstart application`. Following is the Client config example and how it looks in the keycloak console.
-
-image::keycloak_clientconfig.png[Keycloak Template]
-
-<1> Check the Access Type field is not public; rather `confidential` , Also if you look at the `Credentials` Tab you will see the the credentials used.
-
-<2> Also you will need to add the `Root url`, `Redirect URL`, `Admin URL` , `Web Origins` ; the url provided in the screen shot is an example, your URL would be the url for your applicaiton deployed. So lets deploy the application first
-
 To deploy the application lets run the following commands in our CodeReady Terminal. ensure you are in the right directory i.e. `security-openid-connect-quickstart`
 
 [source, bash]
@@ -233,6 +225,21 @@ Once the application is deployed, the console should look similar as follows
 
 image::keycloak_quarkusapp.png[Keycloak Template]
 
+Now Go back to the SSO Admin console, and configure the `backend-service` client with the correct url from your `kstart application`. Following is the Client config example and how it looks in the keycloak console.
+
+image::keycloak_clientconfig.png[Keycloak Template]
+
+<1> Check the Access Type field is not public; rather `confidential` , Also if you look at the `Credentials` Tab you will see the the credentials used.
+
+<2> Also you will need to add the `Root url`, `Redirect URL`, `Admin URL` , `Web Origins` ; the url provided in the screen shot is an example, your URL would be the url for your applicaiton deployed. 
+
+- `Root URL`, If Red Hat Single Sign-On uses any configured relative URLs, this value is prepended to them.
+
+- `Valid Redirect URIs`, What does the SSO redirect to after validation. Wildcards (\*) are only allowed at the end of a URI, i.e. http://host.com/*
+
+- `Admin URL`, for Red Hat Single Sign-On specific client adapters, this is the callback endpoint for the client. The Red Hat Single Sign-On server will use this URI to make callbacks like pushing revocation policies, performing backchannel logout, and other administrative operations.
+
+- `Web Origins`, This option centers around CORS which stands for Cross-Origin Resource Sharing. If browser JavaScript tries to make an AJAX HTTP request to a server whose domain is different from the one the JavaScript code came from, then the request must use CORS. The server must handle CORS requests in a special way, otherwise the browser will not display or allow the request to be processed. This protocol exists to protect against XSS, CSRF and other JavaScript-based attacks. 
 
 
 If all is going well you should now see your application in Openshift console. 
@@ -250,7 +257,8 @@ image::keycloak_jsconsole.png[Keycloak Template]
 
 
 Congratulations you have now created a front end application that connects to a backend. 
-In this tutorial we used a backend-service Client for our Quarkus realm. And we were able to call our backend from our frontend.
+In this tutorial we used a backend-service Client for our Quarkus realm. And we were able to call our backend from our frontend. In normal practise you would perhaps have a different front-end service that connects to multiple backend serivce/s. In that case you could just seperate the JS Console in this example and create another client for front-end. There are more features there that you could leverage from Red Hat SSO, with multiple client roles, mappers etc. Take a look at the documentation for more details. 
+
 
 
 
