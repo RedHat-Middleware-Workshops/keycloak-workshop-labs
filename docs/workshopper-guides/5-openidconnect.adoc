@@ -31,11 +31,12 @@ What if your applications want to know something else about users? Say you want 
 
 Red Hat SSO makes it possible to add custom attributes to users as well as adding custom claims to tokens.
 
-- Ensure you are logged in as Admin
-- Lets first open Users 
-- Select the user you registered with earlier. 
-- Click on attributes and add key avatar_url with value https://www.keycloak.org/resources/images/keycloak_logo_480x108.png. 
-- Click Add followed by Save.
+<1> Ensure you are logged in as Admin
+<2> Lets first open Users 
+<3> And then View all users
+<4> Select the user you registered with earlier, and not the Admin user.
+<5> Click on attributes and add key avatar_url with value https://www.keycloak.org/resources/images/keycloak_logo_480x108.png. 
+<6> Click Add followed by Save.
 
 Now Red Hat SSO knows the users avatar, but the application also needs access to this. We're going to add this through Client Scopes.
 
@@ -67,7 +68,7 @@ Now we've created a client scope, but we also need to asign it to the client, so
 
 - Now go back to the JS Console and click Refresh. You should see a keycloak logo as your avatar on the main JS Console dashboard.
 
-- Click on ID and Access Token links and you can see the custom attribute added into the token as well. 
+- Click on `ID Token JSON` and `Access Token JSON` links and you can see the custom attribute added into the token as well. 
 
 - Refresh your JS Console
 
@@ -93,6 +94,7 @@ So far we've assumed the JS Console is an internal trusted application, but what
 - Go back to the JS Console and click Login again.
 
 Now you have successfully configured a consent. And you can see that it also shows the different attributes that you are consenting too. 
+You can grant consent and should then be able to see the grants. Lets move on to learn more about that.
 
 image::sso_adminuserconsent.png[User Consent]
 
@@ -108,7 +110,7 @@ image::sso_useraccountrevoke.png[Revoking grants]
 
 All the granted permissions and list of applictions will be listed. As you can see Account does not have a Consent, and hence does not offer the revoke options. This is very useful when multiple solutions an applications are connected to single sign on like Red Hat SSO.
 
-*You may want to turn this off again before continuing.*
+You should turn this off again before continuing.
 
 Congratulations you have completed this exercise. 
 

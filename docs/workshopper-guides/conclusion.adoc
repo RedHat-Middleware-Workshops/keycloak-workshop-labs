@@ -1,2 +1,27 @@
 == Conclusion
 
+Achievment unlocked, you made it! Congratulations. We hope you enjoyed the labs and learnt alot more about Red Hat SSO and Keycloak and how to leverage it in a Cloud native and microservices world. There is alot more to Red Hat SSO and that was not illustrated in this workshop.
+
+=== Clustering and Caching
+
+Red Hat SSO leverages Infinispan to cache everything loaded from the database and user stores like LDAP. This removes the need to go to the database for every request.
+
+Infinispan also enables us to provide a clustered mode where user sessions are distributed throughout the cluster. Enabling load balancing as well as redundancy.
+
+Not only does Infinispan allow us to cluster within a single data center, but we also have support for multiple data centers. This works, but there are a few improvements that can be made here.
+Authorization Services
+
+Red Hat SSO provides a way to centrally manage permissions for resources as well as support for UMA 2.0 that enables users themselves to manage permissions to their own resources.
+
+Hopefully, soon we will have a DevNation Live session focusing only on this feature.
+Dynamic Client Registration
+
+Red Hat SSO has a very powerful dynamic client registration service that allows users and applications themselves to register clients through a REST API. This supports clients defined in Red Hat SSO's own client representation, standard OpenID Connect client format as well as SAML 2.0 client format.
+
+It is also possible to define policies on what is permitted. For example you can restrict this service to specific IP ranges, automatically require consent and a lot of other policies. You can also develop your own custom policies.
+OpenID Connect and SAML 2.0
+
+Red Hat SSO provides support for both OpenID Connect and SAML 2.0. 
+
+For more information about Red Hat SSO check out our https://access.redhat.com/products/red-hat-single-sign-on[homepage] and our https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/[documentation].
+

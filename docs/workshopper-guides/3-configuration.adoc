@@ -82,7 +82,7 @@ Open a new browser session in privacy mode, or open another browser.
 
 <2> Hit the register button and register a new user. 
 
-<3> Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. 
+<3> Ensure that you fill in the right email address, since an email will be sent to verify the newly created user. ensure that this email address is not the same as used previously in this excercise.
 
 Once you have registered you should see the following message:
 

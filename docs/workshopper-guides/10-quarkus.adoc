@@ -50,7 +50,7 @@ Perfect now we have the keycloak running. Lets login with our admin user account
 And lets create a new realm. 
 
 In the keycloak directory is a realm file, you should load that file when creating a new realm. It will load all the necessary settings. 
-To download the file on your laptop here is a link to the realm file hosted on github https://raw.githubusercontent.com/sshaaf/sso-kubernetes-workshop/master/security-openid-connect-quickstart/config/quarkus-realm.json[link]
+You should download the file on your laptop here is a link to the realm file hosted on github https://raw.githubusercontent.com/sshaaf/sso-kubernetes-workshop/master/security-openid-connect-quickstart/config/quarkus-realm.json[link]
 
 
 Once loaded, it will show you a success message. 
@@ -81,16 +81,16 @@ quarkus.log.category."io.smallrye.jwt".level=TRACE
 
 ----
 
-<1> Open the application.properties file, and change the value of the property `quarkus.oidc.auth-server-url` to the newly deployed keycloak server url, here is an example from user: evals01
+- Open the application.properties file `src/main/resources`, and change the value of the property `quarkus.oidc.auth-server-url` to the newly deployed keycloak server url, here is an example from user: evals01, use the http protocol for the `quarkus.oidc.auth-server-url`.
 
 image::keycloak_httpurl.png[Keycloak url]
 
 
-<2> this is the Client name in our keycloak server, quite similar to our JS Console app in our previous excercise which was called `js-console`
+- this is the Client name in our keycloak server, quite similar to our JS Console app in our previous excercise which was called `js-console`
 
-<3> Since this is a backend service, it also use credentials, anyone without these credentials will not be able to call the server. even if they had a from the keycloak server. this is important since we will need this in our JS Console app too.
+- Since this is a backend service, it also use credentials, anyone without these credentials will not be able to call the server. even if they had a from the keycloak server. this is important since we will need this in our JS Console app too.
 
-Lets verify our Admin end point
+Lets change our admin end point `/api/admin`
 [source, java]
 ----
 
@@ -172,7 +172,7 @@ Review the following points, and ensure to make changes to the `UserResource.jav
 
 Okay perfect, so by now we have prepared the code. 
 Lets take a quick look at our Js Console as well, you might be familiar with it from the previous exercises. 
-in the directory `src/resources/META-INF/` you will find two files that should also be familiar by now.
+in the directory `src/main/resources/META-INF/` you will find two files that should also be familiar by now.
 
 - index.html
 
@@ -198,7 +198,7 @@ The new addition here is the credentials field.
 There is a bunch of other properties that can be added to this config json, based on what is being used on the client in keycloak. 
 So whats the difference this time? We have added extra credentials to our connection, which means that we expect anyone who is going to authenticate against our system will also add credentials in the call. So just a simple keycloak session on this client will not do. 
 
-Following is the Client config and how it looks in the keycloak console.
+Now Go back to the SSO Admin console, and configure the `backend-service` client with the correct url from your `kstart application`. Following is the Client config example and how it looks in the keycloak console.
 
 image::keycloak_clientconfig.png[Keycloak Template]
 
@@ -206,7 +206,7 @@ image::keycloak_clientconfig.png[Keycloak Template]
 
 <2> Also you will need to add the `Root url`, `Redirect URL`, `Admin URL` , `Web Origins` ; the url provided in the screen shot is an example, your URL would be the url for your applicaiton deployed. So lets deploy the application first
 
-To deploy the application lets run the following commands in our CodeReady Terminal
+To deploy the application lets run the following commands in our CodeReady Terminal. ensure you are in the right directory i.e. `security-openid-connect-quickstart`
 
 [source, bash]
 ----
