@@ -34,5 +34,4 @@ modules:
   - 9-springservice
   - 10-quarkus
   - conclusion
-  - references
   - appendix

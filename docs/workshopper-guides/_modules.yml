@@ -26,7 +26,5 @@ modules:
     name: Securing Quarkus applications with Keycloak
   conclusion:
     name: Conclusion  
-  references:
-    name: References
   appendix:
     name: Appendix
