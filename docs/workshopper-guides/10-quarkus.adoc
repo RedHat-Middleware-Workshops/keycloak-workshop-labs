@@ -198,6 +198,13 @@ The new addition here is the credentials field.
 There is a bunch of other properties that can be added to this config json, based on what is being used on the client in keycloak. 
 So whats the difference this time? We have added extra credentials to our connection, which means that we expect anyone who is going to authenticate against our system will also add credentials in the call. So just a simple keycloak session on this client will not do. 
 
+Also remember to change SERVER_URL to your keycloak instance url the `index.html` file. 
+[source, html]
+----
+<script src="<SERVER_URL>/auth/js/keycloak.js"></script>
+----
+
+
 To deploy the application lets run the following commands in our CodeReady Terminal. ensure you are in the right directory i.e. `security-openid-connect-quickstart`
 
 [source, bash]
