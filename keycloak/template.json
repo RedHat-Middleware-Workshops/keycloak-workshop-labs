@@ -190,15 +190,6 @@
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "quay.io/keycloak/keycloak:7.0.0",
-                                "livenessProbe": {
-                                    "failureThreshold": 3,
-                                    "httpGet": {
-                                        "path": "/auth/realms/master",
-                                        "port": 8080,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 60
-                                },
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -210,16 +201,6 @@
                                         "protocol": "TCP"
                                     }
                                 ],
-                                "readinessProbe": {
-                                    "failureThreshold": 3,
-                                    "httpGet": {
-                                        "path": "/auth/realms/master",
-                                        "port": 8080,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 30,
-                                    "failureThreshold": 10
-                                },
                                 "env": [
                                     {
                                         "name": "KEYCLOAK_USER",
