@@ -1,12 +1,12 @@
 #!/bin/bash
 
 USERCOUNT=50
-USERPREFIX=user
+USERPREFIX=evals%02d
 KEYCLOAK_ADDR=http://keycloak-workspaces.apps.sso-3e67.open.redhat.com
 KEYCLOAK_USER=admin
 KEYCLOAK_PASS=admin
 KEYCLOAK_REALM=codeready
-KEYCLOAK_USER_PASS=Abt7MjWMb8v4ECS
+KEYCLOAK_USER_PASS=openshift
 KEYCLOAK_REALM=codeready
 CODEREADY_SERVER_ADDR=http://codeready-workspaces.apps.sso-3e67.open.redhat.com
 
@@ -16,7 +16,7 @@ KEYCLOAK_TOKEN=$(curl -s -d "username=${KEYCLOAK_USER}&password=${KEYCLOAK_PASS}
 
 echo $KEYCLOAK_TOKEN
 
-usernames=$(awk 'BEGIN { for (i=1; i<='$USERCOUNT'; i++) printf("'$USERPREFIX'%02d ", i) }')
+usernames=$(awk 'BEGIN { for (i=11; i<='$USERCOUNT'; i++) printf("'$USERPREFIX' ", i) }')
 for value in $usernames
 do 
     curl -v -H "Authorization: Bearer ${KEYCLOAK_TOKEN}" -H "Content-Type:application/json" -d '{"username":"'${value}'","enabled":true,"emailVerified": true,"firstName": "'${value}'","lastName": "Workshopper","email": "'${value}'@no-reply.com", "credentials":[{"type":"password","value":"'${KEYCLOAK_USER_PASS}'","temporary":false}]}' -X POST "${KEYCLOAK_ADDR}/auth/admin/realms/${KEYCLOAK_REALM}/users"
@@ -34,7 +34,7 @@ KEYCLOAK_USER_TOKEN=$(curl -s -d "username=${evals}&password=${KEYCLOAK_USER_PAS
 echo $KEYCLOAK_USER_TOKEN
 
     TMPWORK=$(mktemp)
-    sed 's/WORKSPACENAME/WORKSPACE'${evals}'/g' workspace.json > $TMPWORK
+    sed 's/WORKSPACENAME/wksp-'${evals}'/g' workspace.json > $TMPWORK
 
     curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' \
     --header "Authorization: Bearer ${KEYCLOAK_USER_TOKEN}" -d @${TMPWORK} \
