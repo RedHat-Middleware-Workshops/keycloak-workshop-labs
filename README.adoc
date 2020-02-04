@@ -1,4 +1,4 @@
-# Setting up a the SSO Kubernetes Worskhop 
+# Setting up the SSO Kubernetes Worskhop 
 
 The workshop is dependant on the Integreatly cluster from RHPDS. The instructions below can be executed on an Integreatly cluster using 3.11
 
