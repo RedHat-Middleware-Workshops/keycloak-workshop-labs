@@ -32,3 +32,10 @@ do
   https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso73-dev/templates/${resource}
 done              
 ```
+
+
+Once deployed, you should see your Workshop guides and CodeReady installation in the labs-infra project. 
+Anyone attending can also use their local machine, CodeReady is provided as an addition for those not having a developer environment. 
+
+
+
