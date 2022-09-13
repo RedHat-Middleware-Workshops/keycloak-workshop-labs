@@ -1,5 +1,5 @@
 {
-  "realm" : "master",
-  "auth-server-url" : "<SERVER_URL>/auth",
+  "realm" : "demojs",
+  "auth-server-url" : "https://sso-rhn-sa-sshaaf-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com/auth",
   "resource" : "js-console"
 }

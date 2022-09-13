@@ -1,0 +1,25 @@
+schemaVersion: 2.1.0
+metadata:
+  name: keycloak-workshop
+projects:
+  - name: keycloak-workshop
+    git:
+      remotes:
+        origin: 'https://github.com/RedHat-Middleware-Workshops/sso-workshop.git'
+      checkoutFrom:
+        revision: main
+components:
+  - name: keycloak-workshop
+    container:
+      image: 'quay.io/openshiftlabs/quarkus-workshop-stack:2.15'
+      mountSources: true
+      memoryLimit: 2048Mi
+      volumeMounts:
+        - name: m2
+          path: /home/jboss/.m2
+commands:
+  - id: login
+    exec:
+      component: keycloak-workshop
+      commandLine: oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true
+      workingDir: '${PROJECTS_ROOT}/sso-workshop'
