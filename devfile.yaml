@@ -14,9 +14,6 @@ components:
       image: 'quay.io/openshiftlabs/quarkus-workshop-stack:2.15'
       mountSources: true
       memoryLimit: 2048Mi
-      volumeMounts:
-        - name: m2
-          path: /home/jboss/.m2
 commands:
   - id: login
     exec:
