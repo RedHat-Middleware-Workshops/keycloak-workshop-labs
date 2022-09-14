@@ -1,8 +1,0 @@
-{
-  "realm" : "quarkus",
-  "auth-server-url" : "<SERVER_URL>/auth",
-  "resource" : "backend-service",
-  "credentials" : {
-    "secret" : "secret"
- }
-}

@@ -11,12 +11,8 @@ projects:
 components:
   - name: keycloak-workshop
     container:
-      image: 'quay.io/openshiftlabs/quarkus-workshop-stack:2.15'
+      image: 'quay.io/sshaaf/quay.io/sshaaf/sso-workshop-stack:latest'
       mountSources: true
       memoryLimit: 2048Mi
-commands:
-  - id: login
-    exec:
-      component: keycloak-workshop
-      commandLine: oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true
-      workingDir: '${PROJECTS_ROOT}/sso-workshop'
+
+
