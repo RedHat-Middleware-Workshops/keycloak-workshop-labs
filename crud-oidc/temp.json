@@ -1,0 +1,6 @@
+{
+  "title": "Mastering Quarkus",
+  "genre": "Effective-Technology",
+  "isbn": "978-0-321-96551-7",
+  "summary": "Quarkus was created to enable Java developers to create applications for a modern, cloud-native world. Quarkus is a Kubernetes-native Java framework tailored for GraalVM and HotSpot, crafted from best-of-breed Java libraries and standards. The goal is to make Java the leading platform in Kubernetes and serverless environments while offering developers a framework to address a wider range of distributed application architectures."
+}

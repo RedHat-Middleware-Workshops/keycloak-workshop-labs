@@ -13,24 +13,4 @@ import java.util.List;
 @Entity
 public class Book extends PanacheEntityBase {
 
-    @NotNull
-    @NotBlank
-    public String title;
-    public String genre;
-    @Column(unique = true)
-    @NotNull
-    @Id
-    public String isbn;
-    @Column(columnDefinition = "TEXT")
-    public String summary;
-
-
-    public static List<Book> getAll(){
-        return listAll();
-    }
-
-    public static Book getOne(String isbn){
-        return findById(isbn);
-    }
-
 }
