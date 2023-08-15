@@ -1,18 +1,37 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
-  name: keycloak-workshop
-projects:
-  - name: keycloak-workshop
-    git:
-      remotes:
-        origin: 'https://github.com/RedHat-Middleware-Workshops/sso-workshop.git'
-      checkoutFrom:
-        revision: main
+  name: sso-workshop
+attributes:
+  controller.devfile.io/storage-type: ephemeral
 components:
-  - name: keycloak-workshop
-    container:
-      image: 'quay.io/sshaaf/quay.io/sshaaf/sso-workshop-stack:latest'
-      mountSources: true
-      memoryLimit: 2048Mi
-
+  - container:
+      cpuLimit: 2000m
+      cpuRequest: 500m
+      endpoints:
+        - exposure: public
+          name: index-webpage
+          protocol: http
+          targetPort: 8080
+        - exposure: public
+          name: quarkus-devui
+          path: /q/dev
+          protocol: http
+          targetPort: 8080
+        - exposure: none
+          name: quarkus-debug
+          protocol: tcp
+          targetPort: 5005
+        - exposure: none
+          name: test-endpoint
+          protocol: tcp
+          targetPort: 8081
+      env:
+        - value: /home/jboss/.m2
+          name: MAVEN_CONFIG
+        - value: -Xmx4G -Xss128M -XX:MetaspaceSize=1G -XX:MaxMetaspaceSize=2G
+          name: MAVEN_OPTS
+      image: quay.io/openshiftlabs/quarkus-workshop-stack:3.6
+      memoryLimit: 6Gi
+      memoryRequest: 4Gi
+    name: quarkus-tools
 
